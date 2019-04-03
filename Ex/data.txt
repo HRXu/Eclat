@@ -1,0 +1,11 @@
+10
+3 a b c
+3 a d e
+3 b c d
+4 a b c d
+2 b c
+3 a b d
+2 d e
+4 a b c d
+3 c d e
+2 a b c
