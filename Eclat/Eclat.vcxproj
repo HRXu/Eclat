@@ -20,13 +20,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="display.cpp" />
+    <ClCompile Include="Eclat.cpp" />
+    <ClCompile Include="Eclat_A.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="readin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="display.h" />
     <ClInclude Include="eclat.h" />
-    <ClInclude Include="readin.h" />
+    <ClInclude Include="Eclat_A.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeList.txt" />

@@ -12,6 +12,12 @@
     <Filter Include="Other">
       <UniqueIdentifier>{7cc1cd5d-8e2b-448f-aeac-2b7cdd216bb7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Eclat">
+      <UniqueIdentifier>{42195cdc-3a64-4179-9024-fc0db5b32f36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Eclat_A">
+      <UniqueIdentifier>{453dd3d1-9e35-454a-af5a-e4973fa82af5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -23,16 +29,22 @@
     <ClCompile Include="display.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Eclat.cpp">
+      <Filter>Eclat</Filter>
+    </ClCompile>
+    <ClCompile Include="Eclat_A.cpp">
+      <Filter>Eclat_A</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="eclat.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="readin.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="display.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="eclat.h">
+      <Filter>Eclat</Filter>
+    </ClInclude>
+    <ClInclude Include="Eclat_A.h">
+      <Filter>Eclat_A</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
