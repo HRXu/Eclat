@@ -24,17 +24,18 @@ struct vertical_item {
 class Eclat_A
 {
 public:
-	Eclat_A();
-	~Eclat_A();
-
 	std::map<int, tid> m_horizonal;
 	std::vector<vertical_item> v_vertical;
 	std::vector<vertical_item> v_vertical2;
 
+	void display(std::map<int, tid> &m);
+	void display(std::vector<vertical_item> &m);
+
+	void start();
+
+private:
 	void readin(std::map<int, tid>& horizonal, std::vector<vertical_item>& res);
 	void intersection_item(vertical_item &item1, vertical_item & item2, std::vector<vertical_item>& res, int support_threshold);
 
-	void display(std::map<int, tid> &m);
-	void display(std::vector<vertical_item> &m);
 };
 

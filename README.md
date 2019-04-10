@@ -1,2 +1,2 @@
 # Eclat
-C++based eclat implementations
+C++based eclat implementation
