@@ -28,7 +28,7 @@
     <ClInclude Include="Eclat_A.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="CMakeList.txt" />
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

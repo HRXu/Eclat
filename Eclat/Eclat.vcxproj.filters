@@ -29,7 +29,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="CMakeList.txt">
+    <Text Include="CMakeLists.txt">
       <Filter>Other</Filter>
     </Text>
   </ItemGroup>

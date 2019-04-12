@@ -6,6 +6,7 @@ using namespace std;
 
 int main(int argc,char **args) {
 	freopen(args[1], "r", stdin);
-
+	Eclat_A alg;
+	alg.start();
 	return 0;
 }

@@ -6,6 +6,8 @@ using namespace std;
 void Eclat_A::readin(std::map<int, tid>& horizonal, std::vector<vertical_item>& res)
 {
 	READ_INT(cnt);
+	READ_INT(item_cnt);
+	cin >> this->threshold;
 
 	map<char, item> vertical;
 	for (int i = 0; i < cnt; i++)
@@ -106,7 +108,7 @@ void Eclat_A::start()
 		v_vertical2.clear();
 		for (int len = v_vertical.size(), i = 0; i < len; i++) {
 			for (int j = i + 1; j < len; j++) {
-				intersection_item(v_vertical[i], v_vertical[j], v_vertical2, 2);
+				intersection_item(v_vertical[i], v_vertical[j], v_vertical2, this->threshold);
 			}
 		}
 		printf("\n");
@@ -118,7 +120,7 @@ void Eclat_A::start()
 		v_vertical.clear();
 		for (int len = v_vertical2.size(), i = 0; i < len; i++) {
 			for (int j = i + 1; j < len; j++) {
-				intersection_item(v_vertical2[i], v_vertical2[j], v_vertical, 2);
+				intersection_item(v_vertical2[i], v_vertical2[j], v_vertical, this->threshold);
 			}
 		}
 		printf("\n");

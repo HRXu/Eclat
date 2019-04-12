@@ -24,6 +24,8 @@ struct vertical_item {
 class Eclat_A
 {
 public:
+	int threshold;
+
 	std::map<int, tid> m_horizonal;
 	std::vector<vertical_item> v_vertical;
 	std::vector<vertical_item> v_vertical2;
