@@ -8,7 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ex", "Ex", "{7025A2BE-DC44-4BB2-8C92-61FF9D29C41D}"
 	ProjectSection(SolutionItems) = preProject
 		Ex\data.txt = Ex\data.txt
-		Ex\data2.txt = Ex\data2.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BB812A7B-0DC1-4B56-B846-87678199AB50}"

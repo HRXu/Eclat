@@ -19,6 +19,9 @@
       <Filter>Eclat_A</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Eclat_Readin.cpp">
+      <Filter>Eclat</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="eclat.h">

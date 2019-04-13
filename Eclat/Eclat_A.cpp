@@ -7,6 +7,9 @@ void Eclat_A::readin(std::map<int, tid>& horizonal, std::vector<vertical_item>& 
 {
 	READ_INT(cnt);
 	READ_INT(item_cnt);
+	for (int i = 0; i < item_cnt; i++) {
+		READ_CHAR(tmp);
+	}
 	cin >> this->threshold;
 
 	map<char, item> vertical;

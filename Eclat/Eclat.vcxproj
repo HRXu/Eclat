@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Eclat.cpp" />
     <ClCompile Include="Eclat_A.cpp" />
+    <ClCompile Include="Eclat_Readin.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
