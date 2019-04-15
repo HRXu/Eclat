@@ -16,9 +16,10 @@ struct Column {
 	//事务集合
 	int *T_Array=nullptr;
 
-
-	bool CanIntersection(const Column &c1, const Column &c2);
-	void Intersection(Column &src, Column &dest);
+	//求并集
+	bool CanIntersection(Column & src, Column &dest, int length);
+	//求交集
+	void Intersection(Column & src, Column &dest, int length);
 };
 
 class Eclat {

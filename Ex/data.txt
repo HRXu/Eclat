@@ -1,12 +1,11 @@
-10 5 2
-a b c d e
-3 a b c
-3 a d e
-3 b c d
-4 a b c d
-2 b c
-3 a b d
-2 d e
-4 a b c d
-3 c d e
-2 a b c
+9 5 2
+I1 I2 I3 I4 I5
+3 I1 I2 I5
+2 I2 I4
+2 I2 I3
+3 I1 I2 I4
+2 I1 I3
+2 I2 I3
+2 I1 I3
+4 I1 I2 I3 I5
+3 I1 I2 I3

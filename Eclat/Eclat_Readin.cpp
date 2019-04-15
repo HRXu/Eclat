@@ -16,7 +16,7 @@ void Eclat::Readin()
 
 	// ‰»Î ˝æ›
 	bool** matrix=new bool*[T_Count];
-	for (int i = 0; i < Item_Count; i++) {
+	for (int i = 0; i < T_Count; i++) {
 		matrix[i] = new bool[Item_Count];
 		MEMSET_0(matrix[i], bool, Item_Count);
 	}
@@ -54,22 +54,28 @@ void Eclat::Readin()
 		delete[] matrix[i];
 	}
 	delete[] matrix;
+
+	Display(this->Buffer_A);
 }
 
 void Eclat::Display(const std::vector<Column>& buffer_src)
 {
 	for (auto &col : buffer_src) {
-		if (!col.IsVaild) continue;
 		printf("{");
 		for (int i = 0; i < Item_Count; i++) {
 			if (col.Item_Array[i] == 1) {
-				printf("%d%c", i == Item_Count - 1 ? '}' : ',');
+				printf("%s%c", Items[i].c_str(), i == Item_Count - 1 ? '\0' : ' ');
+			}
+			if (i == Item_Count - 1) {
+				printf("} ");
 			}
 		}
-		printf(" ");
 		for (int i = 0; i < T_Count; i++) {
 			if (col.T_Array[i] == 1) {
-				printf("T%d%c", i == Item_Count - 1 ? '\n' : ',');
+				printf("T%d%c",i, i == T_Count - 1 ? '\0' : ' ');
+			}
+			if (i == T_Count - 1) {
+				printf("\n");
 			}
 		}
 	}
