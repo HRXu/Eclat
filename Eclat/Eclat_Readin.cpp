@@ -38,7 +38,9 @@ void Eclat::Readin()
 	for (int i = 0; i < Item_Count; i++)
 	{
 		Buffer_A[i].Item_Array = new int[this->Item_Count];
+		MEMSET_0(Buffer_A[i].Item_Array, int, Item_Count);
 		Buffer_A[i].T_Array = new int[this->T_Count];
+		MEMSET_0(Buffer_A[i].T_Array, int, Item_Count);
 
 		Buffer_A[i].Item_Array[i] = 1;
 		for (int j = 0; j < T_Count; j++)
@@ -56,6 +58,15 @@ void Eclat::Readin()
 	delete[] matrix;
 
 	Display(this->Buffer_A);
+}
+
+void Eclat::ClearBuffer(std::vector<Column>& Buffer)
+{
+	for (auto &it : Buffer) {
+		delete[] it.Item_Array;
+		delete[] it.T_Array;
+	}
+	Buffer.clear();
 }
 
 void Eclat::Display(const std::vector<Column>& buffer_src)

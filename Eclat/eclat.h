@@ -19,7 +19,9 @@ struct Column {
 	//求并集
 	bool CanIntersection(Column & src, Column &dest, int length);
 	//求交集
-	void Intersection(Column & src, Column &dest, int length);
+	int Intersection(Column & src, Column &dest, int length);
+	Column(int I_length,int T_length);
+	Column();
 };
 
 class Eclat {
@@ -41,10 +43,12 @@ class Eclat {
 		//缓存矩阵B
 		std::vector<Column> Buffer_B;
 		//求交
-		int Process(std::vector<Column>& buffer_src, std::vector<Column>& buffer_dest);
+		int Process();
 		//输出
 		void Display(const std::vector<Column>& buffer_src);
 		//
 		void Readin();
+
+		void ClearBuffer(std::vector<Column>& Buffer);
 };
 
