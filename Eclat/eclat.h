@@ -6,6 +6,7 @@
 #include<string>
 #include<cstdlib>
 #include<algorithm>
+#include"Cl_Factory.h"
 //每一列代表一个垂直集条目
 struct Column {
 	//vaild

@@ -10,6 +10,9 @@
     <Filter Include="Eclat_A">
       <UniqueIdentifier>{453dd3d1-9e35-454a-af5a-e4973fa82af5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cl_Factory">
+      <UniqueIdentifier>{3ae10e8d-d851-4224-9704-56412809791f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Eclat.cpp">
@@ -22,6 +25,9 @@
     <ClCompile Include="Eclat_Readin.cpp">
       <Filter>Eclat</Filter>
     </ClCompile>
+    <ClCompile Include="Cl_Factory.cpp">
+      <Filter>Cl_Factory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="eclat.h">
@@ -29,6 +35,9 @@
     </ClInclude>
     <ClInclude Include="Eclat_A.h">
       <Filter>Eclat_A</Filter>
+    </ClInclude>
+    <ClInclude Include="Cl_Factory.h">
+      <Filter>Cl_Factory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
