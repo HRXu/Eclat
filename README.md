@@ -1,2 +1,3 @@
 # Eclat
-C++based eclat implementation
+An ECLAT implementation by C++.
+Accelerate Performance Using OpenCL with Graphics Card.

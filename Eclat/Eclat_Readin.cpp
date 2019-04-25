@@ -69,6 +69,7 @@ void Eclat::ClearBuffer(std::vector<Column>& Buffer)
 	Buffer.clear();
 }
 
+
 void Eclat::Display(const std::vector<Column>& buffer_src)
 {
 	for (auto &col : buffer_src) {
