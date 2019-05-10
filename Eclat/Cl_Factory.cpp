@@ -1,4 +1,4 @@
-#include "Cl_Factory.h"
+#include "CL_Factory.h"
 using namespace std;
 CL_Factory::CL_Factory()
 {
@@ -73,7 +73,26 @@ void CL_Factory::Init(cl_platform_id p_id)
 		char* name_list = (char*)malloc(value_size);
 		status = clGetDeviceInfo(devices[i], CL_DEVICE_NAME, value_size, name_list, NULL);
 		printf("CL_DEVICE_NAME:%s\n", name_list);
-		//PARALLEL COMPUTE UNITS(CU)        cl_uint     maxComputeUnits = 0;        status = clGetDeviceInfo(devices[i], CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(maxComputeUnits), &maxComputeUnits, NULL);     printf("CL_DEVICE_MAX_COMPUTE_UNITS:%u\n", maxComputeUnits);        //maxWorkItemPerGroup       size_t maxWorkItemPerGroup = 0;     status = clGetDeviceInfo(devices[0], CL_DEVICE_MAX_WORK_GROUP_SIZE, sizeof(maxWorkItemPerGroup), &maxWorkItemPerGroup, NULL);       printf("CL_DEVICE_MAX_WORK_GROUP_SIZE: %d\n", maxWorkItemPerGroup);     //maxGlobalMemSize      cl_ulong    maxGlobalMemSize = 0;       status = clGetDeviceInfo(devices[0], CL_DEVICE_GLOBAL_MEM_SIZE, sizeof(maxGlobalMemSize), &maxGlobalMemSize, NULL);     printf("CL_DEVICE_GLOBAL_MEM_SIZE: %lu(MB)\n", maxGlobalMemSize / 1024 / 1024);     //maxConstantBufferSize     cl_ulong maxConstantBufferSize = 0;     clGetDeviceInfo(devices[0], CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE, sizeof(maxConstantBufferSize), &maxConstantBufferSize, NULL);       printf("CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE: %lu(KB)\n", maxConstantBufferSize / 1024);      //maxLocalMemSize       cl_ulong maxLocalMemSize = 0;       status = clGetDeviceInfo(devices[0], CL_DEVICE_LOCAL_MEM_SIZE, sizeof(maxLocalMemSize), &maxLocalMemSize, NULL);        printf("CL_DEVICE_LOCAL_MEM_SIZE: %lu(KB)\n", maxLocalMemSize / 1024);
+
+		////PARALLEL COMPUTE UNITS(CU)
+		//cl_uint     maxComputeUnits = 0;
+		//status = clGetDeviceInfo(devices[i], CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(maxComputeUnits), &maxComputeUnits, NULL);
+		//printf("CL_DEVICE_MAX_COMPUTE_UNITS:%u\n", maxComputeUnits);
+		////maxWorkItemPerGroup
+		//size_t maxWorkItemPerGroup = 0;
+		//status = clGetDeviceInfo(devices[0], CL_DEVICE_MAX_WORK_GROUP_SIZE, sizeof(maxWorkItemPerGroup), &maxWorkItemPerGroup, NULL);
+		//printf("CL_DEVICE_MAX_WORK_GROUP_SIZE: %d\n", maxWorkItemPerGroup);
+		////maxGlobalMemSize
+		//cl_ulong    maxGlobalMemSize = 0;
+		//status = clGetDeviceInfo(devices[0], CL_DEVICE_GLOBAL_MEM_SIZE, sizeof(maxGlobalMemSize), &maxGlobalMemSize, NULL);
+		//printf("CL_DEVICE_GLOBAL_MEM_SIZE: %lu(MB)\n", maxGlobalMemSize / 1024 / 1024);
+		////maxConstantBufferSize     cl_ulong maxConstantBufferSize = 0;
+		//clGetDeviceInfo(devices[0], CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE, sizeof(maxConstantBufferSize), &maxConstantBufferSize, NULL);
+		//printf("CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE: %lu(KB)\n", maxConstantBufferSize / 1024);
+		////maxLocalMemSize
+		//cl_ulong maxLocalMemSize = 0;
+		//status = clGetDeviceInfo(devices[0], CL_DEVICE_LOCAL_MEM_SIZE, sizeof(maxLocalMemSize), &maxLocalMemSize, NULL);
+		//printf("CL_DEVICE_LOCAL_MEM_SIZE: %lu(KB)\n", maxLocalMemSize / 1024);
 
 		// release      printf("\n\n");     free(name1);
 	}

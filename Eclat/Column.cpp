@@ -1,4 +1,4 @@
-#include "Eclat.h"
+#include "Column.h"
 #define MEMSET_0(i,j,k) memset(i,0,sizeof(j)*k)
 bool Column::CanIntersection(Column & src, Column &dest, int length)
 {

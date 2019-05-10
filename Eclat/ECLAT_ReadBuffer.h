@@ -1,12 +1,12 @@
 #pragma once
 #include <memory>
-class ReadBuffer
+class ECLAT_ReadBuffer
 {
 public:
-	ReadBuffer();
+	ECLAT_ReadBuffer();
 	void Add(char c);
 	int ToInt();
-	~ReadBuffer();
+	~ECLAT_ReadBuffer();
 private:
 	char *_b;
 	int index;

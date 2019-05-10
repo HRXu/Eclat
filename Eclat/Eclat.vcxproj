@@ -27,18 +27,17 @@
     <ClCompile Include="ECLAT_ReadBuffer.cpp" />
     <ClCompile Include="ECLAT_Readin.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Readin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CL_Factory.h" />
+    <ClInclude Include="Column.h" />
     <ClInclude Include="ECLAT.h" />
     <ClInclude Include="ECLAT_A.h" />
     <ClInclude Include="ECLAT_Read.h" />
     <ClInclude Include="ECLAT_ReadBuffer.h" />
-    <ClInclude Include="Readin.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
