@@ -1,4 +1,4 @@
-#include "eclat.h"
+#include "ECLAT.h"
 #define READ_INT(i) int i;cin>>i
 #define MEMSET_0(i,j,k) memset(i,0,sizeof(j)*k)
 using namespace std;

@@ -1,9 +1,9 @@
-#include "Eclat_A.h"
+#include "ECLAT_A.h"
 #define READ_INT(i) int i;cin>>i
 #define READ_CHAR(i) char i;cin>>i
 using namespace std;
 
-void Eclat_A::readin(std::map<int, tid>& horizonal, std::vector<vertical_item>& res)
+void ECLAT_A::readin(std::map<int, tid>& horizonal, std::vector<vertical_item>& res)
 {
 	READ_INT(cnt);
 	READ_INT(item_cnt);
@@ -39,7 +39,7 @@ void Eclat_A::readin(std::map<int, tid>& horizonal, std::vector<vertical_item>& 
 	}
 }
 
-void Eclat_A::intersection_item(
+void ECLAT_A::intersection_item(
 	vertical_item & item1, 
 	vertical_item & item2, 
 	vector<vertical_item>& res, 
@@ -70,7 +70,7 @@ void Eclat_A::intersection_item(
 	res.push_back(tmp);
 }
 
-void Eclat_A::display(std::map<int, tid>& m)
+void ECLAT_A::display(std::map<int, tid>& m)
 {
 	for (auto &it : m) {
 		printf("T%d: ", it.first);
@@ -81,7 +81,7 @@ void Eclat_A::display(std::map<int, tid>& m)
 	}
 }
 
-void Eclat_A::display(std::vector<vertical_item>& m)
+void ECLAT_A::display(std::vector<vertical_item>& m)
 {
 	for (auto &it : m) {
 		printf("{");
@@ -100,7 +100,7 @@ void Eclat_A::display(std::vector<vertical_item>& m)
 	}
 }
 
-void Eclat_A::start()
+void ECLAT_A::start()
 {
 	readin(m_horizonal, v_vertical);
 	display(m_horizonal);

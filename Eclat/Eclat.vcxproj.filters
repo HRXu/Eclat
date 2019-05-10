@@ -4,48 +4,63 @@
     <Filter Include="Other">
       <UniqueIdentifier>{7cc1cd5d-8e2b-448f-aeac-2b7cdd216bb7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Eclat">
-      <UniqueIdentifier>{42195cdc-3a64-4179-9024-fc0db5b32f36}</UniqueIdentifier>
+    <Filter Include="ECLAT_STL">
+      <UniqueIdentifier>{d416bcce-02a5-456d-9256-f6f73118dca1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Eclat_A">
-      <UniqueIdentifier>{453dd3d1-9e35-454a-af5a-e4973fa82af5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cl_Factory">
-      <UniqueIdentifier>{3ae10e8d-d851-4224-9704-56412809791f}</UniqueIdentifier>
+    <Filter Include="ECLAT">
+      <UniqueIdentifier>{37f7ea3e-0565-42ba-bc2c-e92f210e08fe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Eclat.cpp">
-      <Filter>Eclat</Filter>
-    </ClCompile>
-    <ClCompile Include="Eclat_A.cpp">
-      <Filter>Eclat_A</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Eclat_Readin.cpp">
-      <Filter>Eclat</Filter>
+    <ClCompile Include="ECLAT_A.cpp">
+      <Filter>ECLAT_STL</Filter>
     </ClCompile>
-    <ClCompile Include="Cl_Factory.cpp">
-      <Filter>Cl_Factory</Filter>
+    <ClCompile Include="CL_Factory.cpp">
+      <Filter>ECLAT</Filter>
     </ClCompile>
     <ClCompile Include="Column.cpp">
-      <Filter>Eclat</Filter>
+      <Filter>ECLAT</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="eclat.h">
-      <Filter>Eclat</Filter>
-    </ClInclude>
-    <ClInclude Include="Eclat_A.h">
-      <Filter>Eclat_A</Filter>
-    </ClInclude>
-    <ClInclude Include="Cl_Factory.h">
-      <Filter>Cl_Factory</Filter>
-    </ClInclude>
+    <ClCompile Include="ECLAT.cpp">
+      <Filter>ECLAT</Filter>
+    </ClCompile>
+    <ClCompile Include="ECLAT_Read.cpp">
+      <Filter>ECLAT</Filter>
+    </ClCompile>
+    <ClCompile Include="ECLAT_ReadBuffer.cpp">
+      <Filter>ECLAT</Filter>
+    </ClCompile>
+    <ClCompile Include="ECLAT_Readin.cpp">
+      <Filter>ECLAT</Filter>
+    </ClCompile>
+    <ClCompile Include="Readin.cpp">
+      <Filter>ECLAT</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt">
       <Filter>Other</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ECLAT_A.h">
+      <Filter>ECLAT_STL</Filter>
+    </ClInclude>
+    <ClInclude Include="CL_Factory.h">
+      <Filter>ECLAT</Filter>
+    </ClInclude>
+    <ClInclude Include="ECLAT.h">
+      <Filter>ECLAT</Filter>
+    </ClInclude>
+    <ClInclude Include="ECLAT_Read.h">
+      <Filter>ECLAT</Filter>
+    </ClInclude>
+    <ClInclude Include="ECLAT_ReadBuffer.h">
+      <Filter>ECLAT</Filter>
+    </ClInclude>
+    <ClInclude Include="Readin.h">
+      <Filter>ECLAT</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

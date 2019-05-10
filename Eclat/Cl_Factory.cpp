@@ -1,6 +1,6 @@
 #include "Cl_Factory.h"
 using namespace std;
-Cl_Factory::Cl_Factory()
+CL_Factory::CL_Factory()
 {
 	cl_uint numPlatforms = 0;
 
@@ -55,7 +55,7 @@ Cl_Factory::Cl_Factory()
 
 }
 
-void Cl_Factory::Init(cl_platform_id p_id)
+void CL_Factory::Init(cl_platform_id p_id)
 {
 	status = clGetDeviceIDs(p_id, CL_DEVICE_TYPE_GPU, 0, NULL, &numDevices);  // retrieve Device number
 
@@ -79,7 +79,7 @@ void Cl_Factory::Init(cl_platform_id p_id)
 	}
 }
 
-void Cl_Factory::Complie(string s,int elements)
+void CL_Factory::Complie(string s,int elements)
 {
 	/*Creat a context*/
 	context = clCreateContext(NULL, numDevices, devices, NULL, NULL, &status);
@@ -118,7 +118,7 @@ void Cl_Factory::Complie(string s,int elements)
 	bufferC = clCreateBuffer(context, CL_MEM_WRITE_ONLY, datasize, NULL, &status);
 }
 
-void Cl_Factory::Run(int * A, int * B, int * C,int elements)
+void CL_Factory::Run(int * A, int * B, int * C,int elements)
 {
 	/*Write host data to device buffers*/
 	status = clEnqueueWriteBuffer(cmdQueue, bufferA, CL_FALSE, 0, sizeof(int)*elements, A, 0, NULL, NULL);
@@ -142,7 +142,7 @@ void Cl_Factory::Run(int * A, int * B, int * C,int elements)
 	clEnqueueReadBuffer(cmdQueue, bufferC, CL_TRUE, 0, sizeof(int)*elements, C, 0, NULL, NULL);
 }
 
-Cl_Factory::~Cl_Factory()
+CL_Factory::~CL_Factory()
 {
 	clReleaseKernel(kernel);
 	clReleaseProgram(program);

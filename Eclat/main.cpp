@@ -4,8 +4,9 @@
 using namespace std;
 
 int main(int argc,char **args) {
-	freopen(args[1], "r", stdin);
+	/*freopen(args[1], "r", stdin);
 	Eclat alg;
-	alg.Start(true);
+	alg.Start(true);*/
+
 	return 0;
 }

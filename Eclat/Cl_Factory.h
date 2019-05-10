@@ -2,10 +2,10 @@
 #include<string>
 #include<CL/cl.h>
 #include<cstdio>
-class Cl_Factory
+class CL_Factory
 {
 public:
-	Cl_Factory();
+	CL_Factory();
 	//initialize
 	void Init(cl_platform_id id);
 	//complie the kernal code and create the runtime environment
@@ -17,7 +17,7 @@ public:
 	cl_device_id* devices = nullptr;
 	cl_uint numDevices = 0;
 	cl_int status;
-	~Cl_Factory();
+	~CL_Factory();
 
 private:
 	cl_context context = NULL;

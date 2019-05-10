@@ -19,20 +19,26 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Cl_Factory.cpp" />
+    <ClCompile Include="CL_Factory.cpp" />
     <ClCompile Include="Column.cpp" />
-    <ClCompile Include="Eclat.cpp" />
-    <ClCompile Include="Eclat_A.cpp" />
-    <ClCompile Include="Eclat_Readin.cpp" />
+    <ClCompile Include="ECLAT.cpp" />
+    <ClCompile Include="ECLAT_A.cpp" />
+    <ClCompile Include="ECLAT_Read.cpp" />
+    <ClCompile Include="ECLAT_ReadBuffer.cpp" />
+    <ClCompile Include="ECLAT_Readin.cpp" />
     <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Cl_Factory.h" />
-    <ClInclude Include="eclat.h" />
-    <ClInclude Include="Eclat_A.h" />
+    <ClCompile Include="Readin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CL_Factory.h" />
+    <ClInclude Include="ECLAT.h" />
+    <ClInclude Include="ECLAT_A.h" />
+    <ClInclude Include="ECLAT_Read.h" />
+    <ClInclude Include="ECLAT_ReadBuffer.h" />
+    <ClInclude Include="Readin.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

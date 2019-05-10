@@ -21,7 +21,7 @@ struct vertical_item {
 	std::set<int> t_set;
 };
 
-class Eclat_A
+class ECLAT_A
 {
 public:
 	int threshold;

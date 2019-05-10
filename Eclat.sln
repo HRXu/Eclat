@@ -7,8 +7,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Eclat", "Eclat\Eclat.vcxpro
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ex", "Ex", "{7025A2BE-DC44-4BB2-8C92-61FF9D29C41D}"
 	ProjectSection(SolutionItems) = preProject
-		Ex\data.txt = Ex\data.txt
+		ex\chess.dat = ex\chess.dat
+		ex\connect.dat = ex\connect.dat
+		ex\kosarak 2.dat = ex\kosarak 2.dat
+		ex\kosarak.dat = ex\kosarak.dat
+		ex\mushroom.dat = ex\mushroom.dat
+		ex\pumsb.dat = ex\pumsb.dat
+		ex\pumsb_star.dat = ex\pumsb_star.dat
 		README.md = README.md
+		ex\retail.dat = ex\retail.dat
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BB812A7B-0DC1-4B56-B846-87678199AB50}"

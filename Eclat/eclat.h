@@ -35,7 +35,7 @@ class Eclat {
 		//»º´æ¾ØÕóA
 		int Threshold;
 
-		Cl_Factory cl_factory;
+		CL_Factory cl_factory;
 	private:
 		//Ãû×ÖÓëidµÄÓ³Éä
 		std::string* Items;
