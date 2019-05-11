@@ -3,7 +3,7 @@
 #define MEMSET_0(i,j,k) memset(i,0,sizeof(j)*k)
 using namespace std;
 //输入，转化为垂直集
-void Eclat::Readin()
+void ECLAT::Readin()
 {
 	cin >> this->T_Count>>this->Item_Count>>this->Threshold;
 
@@ -60,7 +60,7 @@ void Eclat::Readin()
 	Display(this->Buffer_A);
 }
 
-void Eclat::ClearBuffer(std::vector<Column>& Buffer)
+void ECLAT::ClearBuffer(std::vector<Column>& Buffer)
 {
 	for (auto &it : Buffer) {
 		delete[] it.Item_Array;
@@ -70,7 +70,7 @@ void Eclat::ClearBuffer(std::vector<Column>& Buffer)
 }
 
 
-void Eclat::Display(const std::vector<Column>& buffer_src)
+void ECLAT::Display(const std::vector<Column>& buffer_src)
 {
 	for (auto &col : buffer_src) {
 		printf("{");

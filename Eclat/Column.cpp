@@ -30,6 +30,12 @@ Column::Column(int I_length, int T_length)
 	memset(T_Array, 0, sizeof(int)*T_length);
 }
 
+Column::Column(int * itemArray, int * tArray)
+{
+	this->Item_Array = itemArray;
+	this->T_Array = tArray;
+}
+
 Column::Column()
 {
 }

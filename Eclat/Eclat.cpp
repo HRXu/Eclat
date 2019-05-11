@@ -1,7 +1,7 @@
-#include "eclat.h"
+#include "ECLAT.h"
 #define MEMSET_0(i,j,k) memset(i,0,sizeof(j)*k)
 using namespace std;
-void Eclat::Start(bool isAccerlate)
+void ECLAT::Start(bool isAccerlate)
 {
 	this->Readin();
 	if (isAccerlate) {
@@ -20,7 +20,7 @@ void Eclat::Start(bool isAccerlate)
 	}
 }
 
-int Eclat::Process()
+int ECLAT::Process()
 {
 	while (true)
 	{
@@ -76,7 +76,7 @@ int Eclat::Process()
 	return 0;
 }
 
-int Eclat::Process_cl_ver()
+int ECLAT::Process_cl_ver()
 {
 	while (true)
 	{
@@ -132,7 +132,7 @@ int Eclat::Process_cl_ver()
 	return 0;
 }
 
-int Eclat::Intersection(Column & col1, Column & col2, Column & dest, int length)
+int ECLAT::Intersection(Column & col1, Column & col2, Column & dest, int length)
 {
 	int res = 0;
 	for (int i = 0; i < length; i++) {
@@ -142,7 +142,7 @@ int Eclat::Intersection(Column & col1, Column & col2, Column & dest, int length)
 	return res;
 }
 
-int Eclat::Intersection_cl_ver(Column & col1, Column & col2, Column & dest, int length)
+int ECLAT::Intersection_cl_ver(Column & col1, Column & col2, Column & dest, int length)
 {
 	int res = 0;
 	cl_factory.Run(col1.T_Array, col2.T_Array, dest.T_Array, length);
