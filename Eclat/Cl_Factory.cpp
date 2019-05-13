@@ -130,18 +130,18 @@ void CL_Factory::Complie(string s,int elements)
 	/*Create a command queue*/
 	cmdQueue = clCreateCommandQueueWithProperties(context, devices[0], 0, &status);
 
-	const int datasize = sizeof(int)*elements;
+	const int datasize = sizeof(bool)*elements;
 	/*Create device buffers*/
 	bufferA = clCreateBuffer(context, CL_MEM_READ_ONLY, datasize, NULL, &status);
 	bufferB = clCreateBuffer(context, CL_MEM_READ_ONLY, datasize, NULL, &status);
 	bufferC = clCreateBuffer(context, CL_MEM_WRITE_ONLY, datasize, NULL, &status);
 }
 
-void CL_Factory::Run(int * A, int * B, int * C,int elements)
+void CL_Factory::Run(bool * A, bool * B, bool * C,int elements)
 {
 	/*Write host data to device buffers*/
-	status = clEnqueueWriteBuffer(cmdQueue, bufferA, CL_FALSE, 0, sizeof(int)*elements, A, 0, NULL, NULL);
-	status = clEnqueueWriteBuffer(cmdQueue, bufferB, CL_FALSE, 0, sizeof(int)*elements, B, 0, NULL, NULL);
+	status = clEnqueueWriteBuffer(cmdQueue, bufferA, CL_FALSE, 0, sizeof(bool)*elements, A, 0, NULL, NULL);
+	status = clEnqueueWriteBuffer(cmdQueue, bufferB, CL_FALSE, 0, sizeof(bool)*elements, B, 0, NULL, NULL);
 
 	/*Set the kernel arguments*/
 	status = clSetKernelArg(kernel, 0, sizeof(cl_mem), &bufferA);
@@ -158,7 +158,7 @@ void CL_Factory::Run(int * A, int * B, int * C,int elements)
 	status = clEnqueueNDRangeKernel(cmdQueue, kernel, 1, NULL, globalWorkSize, NULL, 0, NULL, NULL);
 	/*Read the buffer output back to host*/
 	clFinish(cmdQueue);
-	clEnqueueReadBuffer(cmdQueue, bufferC, CL_TRUE, 0, sizeof(int)*elements, C, 0, NULL, NULL);
+	clEnqueueReadBuffer(cmdQueue, bufferC, CL_TRUE, 0, sizeof(bool)*elements, C, 0, NULL, NULL);
 }
 
 CL_Factory::~CL_Factory()

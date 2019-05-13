@@ -2,8 +2,8 @@
 #define MEMSET_0(i,j,k) memset(i,0,sizeof(j)*k)
 bool Column::CanIntersection(Column & src, Column &dest, int length)
 {
-	int *tmp = new int[length];
-	MEMSET_0(tmp, int, length);
+	bool *tmp = new bool[length];
+	MEMSET_0(tmp, bool, length);
 
 	int diff = 0;
 	for (int i = 0; i < length; i++)
@@ -24,13 +24,13 @@ bool Column::CanIntersection(Column & src, Column &dest, int length)
 
 Column::Column(int I_length, int T_length)
 {
-	Item_Array = new int[I_length];
-	memset(Item_Array, 0, sizeof(int)*I_length);
-	T_Array = new int[T_length];
-	memset(T_Array, 0, sizeof(int)*T_length);
+	Item_Array = new bool[I_length];
+	memset(Item_Array, 0, sizeof(bool)*I_length);
+	T_Array = new bool[T_length];
+	memset(T_Array, 0, sizeof(bool)*T_length);
 }
 
-Column::Column(int * itemArray, int * tArray)
+Column::Column(bool * itemArray, bool * tArray)
 {
 	this->Item_Array = itemArray;
 	this->T_Array = tArray;

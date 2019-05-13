@@ -9,8 +9,8 @@ bool ECLAT_Read::ReadData(std::vector<Column>& buffer_src, DataSet _set)
 		break;
 	case ECLAT_Read::connect:
 		break;
-	case ECLAT_Read::kosarak:
-		Read_Kosarak(buffer_src);
+	case ECLAT_Read::kosarak_Slim:
+		Read_Kosarak_Slim(buffer_src);
 		break;
 	case ECLAT_Read::kosarak2:
 		break;
@@ -28,85 +28,67 @@ bool ECLAT_Read::ReadData(std::vector<Column>& buffer_src, DataSet _set)
 	return false;
 }
 
-void ECLAT_Read::Read_Kosarak(std::vector<Column>& buffer_src)
+void ECLAT_Read::Read_Kosarak_Slim(std::vector<Column>& buffer_src)
 {
-	const int length=41270;//商品种类
-	const int height=990002;//记录数
+	const int length=6965+1;//商品种类
+	const int height=4702;//记录数
 
 	int max = 0;
 	ifstream fs;
-	fs.open("../Ex/kosarak.dat", ios::in | ios::binary);
-	char tmp;
-	int location = 0;
-	bool flag = true;
-	ECLAT_ReadBuffer buff;
+	fs.open("../Ex/data.txt", ios::in | ios::binary);
 
+	char tmp;
+	ECLAT_ReadBuffer buff;
 	//[Item,Record] map
 	unordered_map<int, vector<int>> _map;
 	//line number
 	int line = 1;
 
-	while (flag) {
+	while (true) {
 		tmp = fs.get();
 		if (tmp == -1)
 			break;
-		switch (location)
-		{
-		case 0:
-			if (tmp == '\n') {
-				//finish a line
-				line++;
-				location = 0;
-			}
-			else if (tmp == ' ');
-			else {
-				buff.Add(tmp);
-				location = 1;
-			}
-			break;
-		case 1:
-			if (tmp == '\n') {
-				//finish a nuumber
-				//finish a line				
-				_map[buff.ToInt()].push_back(line);
-
-				line++;
-				location = 0;
-			}
-			else if (tmp == ' ') {
-				//finish a nuumber
-				_map[buff.ToInt()].push_back(line);
-				location = 2;
-			}
-			else {
-				buff.Add(tmp);
-				location = 1;
-			}
-			break;
-		case 2:
-			if (tmp == ' ');
-			else if (tmp == '\n') {
-				//finish a line
-				line++;
-				location = 0;
-			}
-			else {
-				buff.Add(tmp);
-				location = 1;
-			}
-			break;
+		if (tmp == '\n') {
+			//finish a nuumber
+			//finish a line				
+			_map[buff.ToInt()].push_back(line);
+			line++;
+		}
+		else if (tmp == ' ') {
+			//finish a nuumber
+			_map[buff.ToInt()].push_back(line);
+		}
+		else {
+			buff.Add(tmp);
 		}
 	}
+
+	//int bf;
+	//while (!fs.eof())
+	//{
+	//	fs >> bf;
+	//	_map[bf].push_back(line);
+	//	tmp = fs.get();
+	//	if (tmp == '\n') {
+	//		line++;
+	//	}
+	//	else if (tmp == ' ') {
+	//		continue;
+	//	}
+	//}
+
+
 	//close the file
 	fs.close();
 
 	//convert to a vertical form
 	for (auto &it : _map) {
-		int *item_Array = new int[length];
-		memset(item_Array, 0, sizeof(int)*length);
+		bool *item_Array = new bool[length];
+		memset(item_Array, 0, sizeof(bool)*length);
 		item_Array[it.first] = 1;
-		int *t_Array = new int[height]; 
-		memset(item_Array, 0, sizeof(int)*height);
+
+		bool *t_Array = new bool[height]; 
+		memset(t_Array, 0, sizeof(bool)*height);
 		for (auto &it2 : it.second) {
 			t_Array[it2] = 1;
 		}

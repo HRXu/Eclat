@@ -10,6 +10,6 @@ int main(int argc,char **args) {
 	alg.Start(true);*/
 
 	ECLAT alg;
-	ECLAT_Read::ReadData(alg.Buffer_A,ECLAT_Read::kosarak);
+	ECLAT_Read::ReadData(alg.Buffer_A,ECLAT_Read::kosarak_Slim);
 	return 0;
 }

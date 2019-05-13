@@ -11,7 +11,7 @@ public:
 	//complie the kernal code and create the runtime environment
 	void Complie(std::string s,int elements);
 	//set the params add excute the kernal code;
-	void Run(int *A,int *B,int*C,int elements);
+	void Run(bool *A,bool *B,bool*C,int elements);
 
 	cl_platform_id* platforms = nullptr;
 	cl_device_id* devices = nullptr;

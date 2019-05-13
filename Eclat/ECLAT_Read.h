@@ -10,7 +10,7 @@ public:
 	enum DataSet {
 		chess = 0,
 		connect,
-		kosarak,
+		kosarak_Slim,
 		kosarak2,
 		mushroom,
 		pumsb,
@@ -20,7 +20,7 @@ public:
 	static bool ReadData(std::vector<Column>& buffer_src,DataSet _set);
 
 private:
-	static void Read_Kosarak(std::vector<Column>& buffer_src);
+	static void Read_Kosarak_Slim(std::vector<Column>& buffer_src);
 	static void Read_kosarak2(std::vector<Column>& buffer_src,char *path);
 	static void Read_retail(std::vector<Column>& buffer_src,char *path);
 };

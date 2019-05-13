@@ -1,8 +1,8 @@
 #include "ECLAT_ReadBuffer.h"
 ECLAT_ReadBuffer::ECLAT_ReadBuffer()
 {
-	_b = new char[8];
-	memset(_b, -1, sizeof(char) * 8);
+	_b = new char[7];
+	memset(_b, 0, sizeof(char) * 7);
 	index = 0;
 }
 
@@ -19,8 +19,11 @@ int ECLAT_ReadBuffer::ToInt()
 		res += (_b[i] - '0')*sc;
 		sc *= 10;
 	}
-	memset(_b, -1, sizeof(char) * 8);
+
+	//res = atoi(_b);
+
 	index = 0;
+	memset(_b, 0, sizeof(char) * 7);
 	return res;
 }
 

@@ -5,15 +5,15 @@ struct Column {
 	//vaild
 	bool IsVaild;
 	//项集
-	int *Item_Array = nullptr;
+	bool *Item_Array = nullptr;
 
 	//事务集合
-	int *T_Array = nullptr;
+	bool *T_Array = nullptr;
 
 	//求并集
 	bool CanIntersection(Column & src, Column &dest, int length);
 
 	Column(int I_length, int T_length);
-	Column(int* itemArray, int* tArray);
+	Column(bool* itemArray, bool* tArray);
 	Column();
 };

@@ -37,10 +37,10 @@ void ECLAT::Readin()
 	Buffer_A.resize(Item_Count);
 	for (int i = 0; i < Item_Count; i++)
 	{
-		Buffer_A[i].Item_Array = new int[this->Item_Count];
-		MEMSET_0(Buffer_A[i].Item_Array, int, Item_Count);
-		Buffer_A[i].T_Array = new int[this->T_Count];
-		MEMSET_0(Buffer_A[i].T_Array, int, Item_Count);
+		Buffer_A[i].Item_Array = new bool[this->Item_Count];
+		MEMSET_0(Buffer_A[i].Item_Array, bool, Item_Count);
+		Buffer_A[i].T_Array = new bool[this->T_Count];
+		MEMSET_0(Buffer_A[i].T_Array, bool, Item_Count);
 
 		Buffer_A[i].Item_Array[i] = 1;
 		for (int j = 0; j < T_Count; j++)
