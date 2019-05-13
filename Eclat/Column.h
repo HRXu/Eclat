@@ -11,7 +11,7 @@ struct Column {
 	bool *T_Array = nullptr;
 
 	//Çó²¢¼¯
-	bool CanIntersection(Column & src, Column &dest, int length);
+	bool CanIntersectWith(Column & src, Column &dest, int length);
 
 	Column(int I_length, int T_length);
 	Column(bool* itemArray, bool* tArray);

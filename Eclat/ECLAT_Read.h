@@ -4,6 +4,7 @@
 #include <fstream>
 #include <unordered_map>
 #include "Column.h"
+#include "ECLAT.h"
 class ECLAT_Read
 {
 public:
@@ -15,13 +16,12 @@ public:
 		mushroom,
 		pumsb,
 		pumsb_star,
-		retail
+		retail,
+		test
 	};
-	static bool ReadData(std::vector<Column>& buffer_src,DataSet _set);
+	static bool ReadData(ECLAT& eclat,DataSet _set);
 
 private:
-	static void Read_Kosarak_Slim(std::vector<Column>& buffer_src);
-	static void Read_kosarak2(std::vector<Column>& buffer_src,char *path);
-	static void Read_retail(std::vector<Column>& buffer_src,char *path);
+	static void Read(std::vector<Column>& buffer_src, int t_count, int item_count);
 };
 

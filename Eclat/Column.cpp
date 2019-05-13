@@ -1,6 +1,7 @@
 #include "Column.h"
 #define MEMSET_0(i,j,k) memset(i,0,sizeof(j)*k)
-bool Column::CanIntersection(Column & src, Column &dest, int length)
+//检查是否能求交 求并集
+bool Column::CanIntersectWith(Column & src, Column &dest, int length)
 {
 	bool *tmp = new bool[length];
 	MEMSET_0(tmp, bool, length);
@@ -8,10 +9,8 @@ bool Column::CanIntersection(Column & src, Column &dest, int length)
 	int diff = 0;
 	for (int i = 0; i < length; i++)
 	{
-		if (Item_Array[i] != src.Item_Array[i]) {
-			diff++;
-		}
 		tmp[i] = Item_Array[i] | src.Item_Array[i];
+		diff += Item_Array[i] ^ src.Item_Array[i];
 	}
 	if (diff != 2) {
 		delete[] tmp;

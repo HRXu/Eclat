@@ -9,7 +9,8 @@ int main(int argc,char **args) {
 	Eclat alg;
 	alg.Start(true);*/
 
-	ECLAT alg;
-	ECLAT_Read::ReadData(alg.Buffer_A,ECLAT_Read::kosarak_Slim);
+	ECLAT alg(false,2);
+	ECLAT_Read::ReadData(alg,ECLAT_Read::test);
+	alg.Start();
 	return 0;
 }
