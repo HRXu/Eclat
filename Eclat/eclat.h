@@ -12,6 +12,7 @@
 class ECLAT {
 	public:	
 		ECLAT(bool isAccerlate, int threshold);
+		//开始算法运行
 		void Start();
 		//商品数量
 		int Item_Count;
@@ -25,6 +26,7 @@ class ECLAT {
 		//缓存
 		std::vector<Column> Buffer_A;
 		std::vector<Column> Buffer_B;
+		void Reduce();
 	private:
 
 		//flag
@@ -33,14 +35,14 @@ class ECLAT {
 
 		//计算
 		int Process();
-		int Process_cl_ver();
+		int CL_Process();
 		//输出
 		void Display(const std::vector<Column>& buffer_src);
 
 		void ClearBuffer(std::vector<Column>& Buffer);
 
 		//求交集
-		int Intersect(Column &col1,Column &col2,Column& dest,int length);
-		int Intersect_cl_ver(Column & col1, Column & col2, Column & dest, int length);
+		int Intersect(Column & col1, Column & col2, Column & dest);
+		int CL_Intersect(Column & col1, Column & col2, Column & dest);
 };
 

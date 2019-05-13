@@ -12,5 +12,6 @@ int main(int argc,char **args) {
 	ECLAT alg(false,2);
 	ECLAT_Read::ReadData(alg,ECLAT_Read::test);
 	alg.Start();
+	getchar();
 	return 0;
 }
