@@ -22,6 +22,9 @@ public:
 	static bool ReadData(ECLAT& eclat,DataSet _set);
 
 private:
-	static void Read(std::vector<Column>& buffer_src, int t_count, int item_count);
+	static void Read(std::vector<Column>& buffer_src,
+					int t_count, 
+					int item_count,
+					const char * path);
 };
 

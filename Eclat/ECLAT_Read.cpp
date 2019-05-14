@@ -10,8 +10,12 @@ bool ECLAT_Read::ReadData(ECLAT& eclat, DataSet _set)
 	case ECLAT_Read::connect:
 		break;
 	case ECLAT_Read::kosarak_Slim:
-		eclat.Item_Count = 6959 + 1;
-		eclat.T_Count = 4702 + 1;
+		eclat.Item_Count = 3259 + 1;
+		eclat.T_Count = 1000 + 1;
+		Read(eclat.Buffer_A,
+			eclat.T_Count,
+			eclat.Item_Count,
+			"../Ex/data.txt");
 		break;
 	case ECLAT_Read::kosarak2:
 		break;
@@ -26,21 +30,28 @@ bool ECLAT_Read::ReadData(ECLAT& eclat, DataSet _set)
 	case ECLAT_Read::test:
 		eclat.Item_Count = 5 + 1;
 		eclat.T_Count = 9 + 1;
+		Read(eclat.Buffer_A,
+			eclat.T_Count,
+			eclat.Item_Count,
+			"../Ex/test.txt");
 		break;
 	}
-	Read(eclat.Buffer_A, eclat.T_Count, eclat.Item_Count);
+
 	return false;
 }
 
-void ECLAT_Read::Read(std::vector<Column>& buffer_src,int t_count,int item_count)
+void ECLAT_Read::Read(std::vector<Column>& buffer_src,
+	int t_count, 
+	int item_count,
+	const char *path)
 {
-
 	int max = 0;
 	ifstream fs;
-	fs.open("../Ex/test.txt", ios::in | ios::binary);
+	fs.open(path, ios::in | ios::binary);
 
 	char tmp;
 	ECLAT_ReadBuffer buff;
+
 	//[Item,Record] map
 	unordered_map<int, vector<int>> _map;
 

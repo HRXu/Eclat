@@ -2,8 +2,6 @@
 #include <memory>
 //每一列代表一个垂直集条目
 struct Column {
-	//vaild
-	bool IsVaild;
 	//项集
 	bool *Item_Array = nullptr;
 

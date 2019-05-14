@@ -161,6 +161,74 @@ void CL_Factory::Run(bool * A, bool * B, bool * C,int elements)
 	clEnqueueReadBuffer(cmdQueue, bufferC, CL_TRUE, 0, sizeof(bool)*elements, C, 0, NULL, NULL);
 }
 
+void CL_Factory::WriteBufferA(bool * A, int elements)
+{
+	/*Write host data to device buffers*/
+	status = clEnqueueWriteBuffer(cmdQueue, bufferA, CL_FALSE, 0, sizeof(bool)*elements, A, 0, NULL, NULL);
+}
+
+void CL_Factory::WriteBufferB(bool * B, int elements)
+{
+	/*Write host data to device buffers*/
+	status = clEnqueueWriteBuffer(cmdQueue, bufferB, CL_FALSE, 0, sizeof(bool)*elements, B, 0, NULL, NULL);
+}
+
+void CL_Factory::Run(bool * C, int elements)
+{
+	/*Set the kernel arguments*/
+	status = clSetKernelArg(kernel, 0, sizeof(cl_mem), &bufferA);
+	status = clSetKernelArg(kernel, 1, sizeof(cl_mem), &bufferB);
+	status = clSetKernelArg(kernel, 2, sizeof(cl_mem), &bufferC);
+
+	/*CONFIGURE THE WORK-ITEM STRUCTURE*/
+	size_t globalWorkSize[1];
+	globalWorkSize[0] = elements;
+	//  size_t globalSize[1] = { elements }, localSize[1] = { 256 };
+
+	/*Enqueue the kernel for execution*/
+	status = clEnqueueNDRangeKernel(cmdQueue, kernel, 1, NULL, globalWorkSize, NULL, 0, NULL, NULL);
+	/*Read the buffer output back to host*/
+	clFinish(cmdQueue);
+	clEnqueueReadBuffer(cmdQueue, bufferC, CL_TRUE, 0, sizeof(bool)*elements, C, 0, NULL, NULL);
+}
+
+void CL_Factory::Run_union(bool * C, int elements)
+{
+	/*Set the kernel arguments*/
+	status = clSetKernelArg(kernel_union, 0, sizeof(cl_mem), &bufferA);
+	status = clSetKernelArg(kernel_union, 1, sizeof(cl_mem), &bufferB);
+	status = clSetKernelArg(kernel_union, 2, sizeof(cl_mem), &bufferC);
+
+	/*CONFIGURE THE WORK-ITEM STRUCTURE*/
+	size_t globalWorkSize[1];
+	globalWorkSize[0] = elements;
+	//  size_t globalSize[1] = { elements }, localSize[1] = { 256 };
+
+	/*Enqueue the kernel for execution*/
+	status = clEnqueueNDRangeKernel(cmdQueue, kernel_union, 1, NULL, globalWorkSize, NULL, 0, NULL, NULL);
+	/*Read the buffer output back to host*/
+	clFinish(cmdQueue);
+	clEnqueueReadBuffer(cmdQueue, bufferC, CL_TRUE, 0, sizeof(bool)*elements, C, 0, NULL, NULL);
+}
+void CL_Factory::Run_intersect(bool * C, int elements)
+{
+	/*Set the kernel arguments*/
+	status = clSetKernelArg(kernel_intersect, 0, sizeof(cl_mem), &bufferD);
+	status = clSetKernelArg(kernel_intersect, 1, sizeof(cl_mem), &bufferE);
+	status = clSetKernelArg(kernel_intersect, 2, sizeof(cl_mem), &bufferC);
+
+	/*CONFIGURE THE WORK-ITEM STRUCTURE*/
+	size_t globalWorkSize[1];
+	globalWorkSize[0] = elements;
+	//  size_t globalSize[1] = { elements }, localSize[1] = { 256 };
+
+	/*Enqueue the kernel for execution*/
+	status = clEnqueueNDRangeKernel(cmdQueue, kernel_intersect, 1, NULL, globalWorkSize, NULL, 0, NULL, NULL);
+	/*Read the buffer output back to host*/
+	clFinish(cmdQueue);
+	clEnqueueReadBuffer(cmdQueue, bufferC, CL_TRUE, 0, sizeof(bool)*elements, C, 0, NULL, NULL);
+}
+
 CL_Factory::~CL_Factory()
 {
 	clReleaseKernel(kernel);

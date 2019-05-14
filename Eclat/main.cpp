@@ -5,13 +5,11 @@
 using namespace std;
 
 int main(int argc,char **args) {
-	/*freopen(args[1], "r", stdin);
-	Eclat alg;
-	alg.Start(true);*/
 
-	ECLAT alg(false,2);
-	ECLAT_Read::ReadData(alg,ECLAT_Read::test);
+	ECLAT alg(false,30);
+	ECLAT_Read::ReadData(alg,ECLAT_Read::kosarak_Slim);
 	alg.Start();
+	printf("press any key to continue...");
 	getchar();
 	return 0;
 }

@@ -35,6 +35,7 @@ class ECLAT {
 
 		//¼ÆËã
 		int Process();
+		void _ProcessA(std::vector<Column>& source, std::vector<Column>& destination,int cnt);
 		int CL_Process();
 		//Êä³ö
 		void Display(const std::vector<Column>& buffer_src);

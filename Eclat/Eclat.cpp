@@ -10,6 +10,12 @@ void ECLAT::Start()
 			"    C[idx]=A[idx] & B[idx];                                              \n"
 			"}                                                                        \n"
 			;
+		string s2 = "__kernel void vecadd(__global bool* A, __global bool* B, __global bool* C)\n"
+			"{                                                                        \n"
+			"    int idx=get_global_id(0);                                            \n"
+			"    C[idx]=A[idx] | B[idx];                                              \n"
+			"}                                                                        \n"
+			;
 		cl_factory.Init(cl_factory.platforms[0]);
 		cl_factory.Complie(s, this->T_Count);
 		this->CL_Process();
@@ -33,42 +39,40 @@ int ECLAT::Process()
 {
 	while (true)
 	{
-		vector<Column> *s=nullptr;
-		vector<Column> *d=nullptr;
 		if (UsingA) {
-			s = &(Buffer_A);
-			d = &(Buffer_B);
+			int cnt = Buffer_A.size();
+			if (cnt == 0)break;
+			_ProcessA(Buffer_A, Buffer_B,cnt);
 		}
 		else {
-			s = &(Buffer_B);
-			d = &(Buffer_A);
+			int cnt = Buffer_B.size();
+			if (cnt == 0)break;
+			_ProcessA(Buffer_B, Buffer_A, cnt);
 		}
-		vector<Column> &source=*s;
-		vector<Column> &destination = *d;
-
-		int cnt = source.size();
-		if (cnt == 0)break;
-		ClearBuffer(destination);
-
-		for (int i = 0; i < cnt; i++) {
-			for (int j = i + 1; j < cnt; j++) {
-				if (source[i].CanIntersectWith(source[j], this->Item_Count)) {
-					Column* tmp = new Column(this->Item_Count, this->T_Count);
-					int res = Intersect(source[i], source[j], *tmp);
-					if (res >= Threshold)
-						destination.push_back(*tmp);
-					else {
-						delete[] tmp->Item_Array;
-						delete[] tmp->T_Array;
-					}
-				}
-			}
-		}
-
-		Display(destination);
 		UsingA = !UsingA;
 	}
 	return 0;
+}
+void ECLAT::_ProcessA(vector<Column> &source, vector<Column> &destination,int cnt)
+{
+	ClearBuffer(destination);
+	for (int i = 0; i < cnt; i++) {
+		for (int j = i + 1; j < cnt; j++) {
+			if (source[i].CanIntersectWith(source[j], this->Item_Count)) {
+				Column* tmp = new Column(this->Item_Count, this->T_Count);
+				int res = Intersect(source[i], source[j], *tmp);
+				if (res >= Threshold)
+					destination.push_back(*tmp);
+				else {
+					delete[] tmp->Item_Array;
+					delete[] tmp->T_Array;
+				}
+				delete tmp;
+			}
+		}
+	}
+	printf("Turn#:\n");
+	Display(destination);
 }
 
 int ECLAT::CL_Process()
@@ -93,9 +97,13 @@ int ECLAT::CL_Process()
 		ClearBuffer(destination);
 
 		for (int i = 0; i < cnt; i++) {
+			cl_factory.WriteBufferA(source[i].T_Array, this->T_Count);
+
 			for (int j = i + 1; j < cnt; j++) {
 				if (source[i].CanIntersectWith(source[j],this->Item_Count)) {
 					Column* tmp = new Column(this->Item_Count, this->T_Count);
+
+					cl_factory.WriteBufferB(source[j].T_Array, this->T_Count);
 					int res = CL_Intersect(source[i], source[j], *tmp);
 					if (res >= Threshold)
 						destination.push_back(*tmp);
@@ -106,7 +114,7 @@ int ECLAT::CL_Process()
 				}
 			}
 		}
-
+		printf("Turn#:\n");
 		Display(destination);
 		UsingA = !UsingA;
 	}
@@ -132,7 +140,7 @@ int ECLAT::CL_Intersect(Column & col1, Column & col2, Column & dest)
 		dest.Item_Array[i] = col1.Item_Array[i] | col2.Item_Array[i];
 	}
 
-	cl_factory.Run(col1.T_Array, col2.T_Array, dest.T_Array,T_Count);
+	cl_factory.Run(dest.T_Array,T_Count);
 	for (int i = 0; i < T_Count; i++) {
 		res += dest.T_Array[i];
 	}
