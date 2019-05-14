@@ -3,15 +3,32 @@
 //检查是否能求交 求并集
 bool Column::CanIntersectWith(Column & col, int length)
 {
-	int diff = 0;
-	for (int i = 0; i < length; i++)
-	{
-		diff += Item_Array[i] ^ col.Item_Array[i];
+	//int diff = 0;
+	//for (int i = 0; i < length; i++)
+	//{
+	//	diff += Item_Array[i] ^ col.Item_Array[i];
+	//}
+	//if (diff != 2) {
+	//	return false;
+	//}
+	//return true;
+	for (int i = 0; i < length; i++){
+		if (Item_Array[i] != col.Item_Array[i]) {
+			i++;
+			for (; i < length; i++){
+				if (Item_Array[i] != col.Item_Array[i]) {
+					i++;
+					for (; i < length; i++) {
+						if ((Item_Array[i] | col.Item_Array[i])) {
+							return false;
+						}
+					}
+					return true;
+				}
+			}
+		}
 	}
-	if (diff != 2) {
-		return false;
-	}
-	return true;
+	return false;
 }
 
 

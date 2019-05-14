@@ -6,8 +6,16 @@ using namespace std;
 
 int main(int argc,char **args) {
 
-	ECLAT alg(false,30);
-	ECLAT_Read::ReadData(alg,ECLAT_Read::kosarak_Slim);
+	//ECLAT alg(false,2);
+	//ECLAT_Read::ReadData(alg,ECLAT_Read::test);
+
+	//ECLAT alg(true, 30);
+	//ECLAT_Read::ReadData(alg, ECLAT_Read::kosarak_Slim);
+
+	ECLAT alg(false, 30);
+	ECLAT_Read::ReadData(alg, ECLAT_Read::kosarak_Slim);
+
+
 	alg.Start();
 	printf("press any key to continue...");
 	getchar();
