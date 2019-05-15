@@ -1,0 +1,10 @@
+__kernel void ve_intersect(__global bool* A, __global bool* B, __global bool* C)
+{  
+    int idx=get_global_id(0);
+    C[idx]=A[idx] & B[idx];
+}																	 
+__kernel void ve_union(__global bool* A, __global bool* B, __global bool* C)
+{
+	int idx=get_global_id(0);
+	C[idx]=A[idx] | B[idx];
+}

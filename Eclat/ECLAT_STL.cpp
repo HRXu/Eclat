@@ -1,16 +1,17 @@
-#include "ECLAT_A.h"
+#include "ECLAT_STL.h"
 #define READ_INT(i) int i;cin>>i
 #define READ_CHAR(i) char i;cin>>i
 using namespace std;
 
-void ECLAT_A::readin(std::map<int, tid>& horizonal, std::vector<vertical_item>& res)
+//unfinish
+void ECLAT_STL::readin(std::map<int, tid>& horizonal,
+					   std::vector<vertical_item>& res)
 {
 	READ_INT(cnt);
 	READ_INT(item_cnt);
 	for (int i = 0; i < item_cnt; i++) {
 		READ_CHAR(tmp);
 	}
-	cin >> this->threshold;
 
 	map<char, item> vertical;
 	for (int i = 0; i < cnt; i++)
@@ -39,7 +40,7 @@ void ECLAT_A::readin(std::map<int, tid>& horizonal, std::vector<vertical_item>& 
 	}
 }
 
-void ECLAT_A::intersection_item(
+void ECLAT_STL::intersection_item(
 	vertical_item & item1, 
 	vertical_item & item2, 
 	vector<vertical_item>& res, 
@@ -70,7 +71,14 @@ void ECLAT_A::intersection_item(
 	res.push_back(tmp);
 }
 
-void ECLAT_A::display(std::map<int, tid>& m)
+
+ECLAT_STL::ECLAT_STL(int _threshold, const char * path)
+{
+	readin(m_horizonal, v_vertical);
+	this->Threshold = _threshold;
+}
+
+void ECLAT_STL::display(std::map<int, tid>& m)
 {
 	for (auto &it : m) {
 		printf("T%d: ", it.first);
@@ -81,7 +89,7 @@ void ECLAT_A::display(std::map<int, tid>& m)
 	}
 }
 
-void ECLAT_A::display(std::vector<vertical_item>& m)
+void ECLAT_STL::display(std::vector<vertical_item>& m)
 {
 	for (auto &it : m) {
 		printf("{");
@@ -100,18 +108,15 @@ void ECLAT_A::display(std::vector<vertical_item>& m)
 	}
 }
 
-void ECLAT_A::start()
+void ECLAT_STL::start()
 {
-	readin(m_horizonal, v_vertical);
-	display(m_horizonal);
-	printf("\n");
 	display(v_vertical);
 
 	while (1) {
 		v_vertical2.clear();
 		for (int len = v_vertical.size(), i = 0; i < len; i++) {
 			for (int j = i + 1; j < len; j++) {
-				intersection_item(v_vertical[i], v_vertical[j], v_vertical2, this->threshold);
+				intersection_item(v_vertical[i], v_vertical[j], v_vertical2, this->Threshold);
 			}
 		}
 		printf("\n");
@@ -123,7 +128,7 @@ void ECLAT_A::start()
 		v_vertical.clear();
 		for (int len = v_vertical2.size(), i = 0; i < len; i++) {
 			for (int j = i + 1; j < len; j++) {
-				intersection_item(v_vertical2[i], v_vertical2[j], v_vertical, this->threshold);
+				intersection_item(v_vertical2[i], v_vertical2[j], v_vertical, this->Threshold);
 			}
 		}
 		printf("\n");
@@ -132,6 +137,5 @@ void ECLAT_A::start()
 			break;
 		}
 	}
-
 }
 

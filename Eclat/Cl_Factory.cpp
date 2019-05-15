@@ -45,7 +45,7 @@ CL_Factory::CL_Factory()
 		printf("CL_PLATFORM_EXTENSIONS:%s\n", extensions);
 
 		// release 
-		printf("\n\n");
+		printf("\n");
 		free(name);
 		free(vendor);
 		free(version);
@@ -94,11 +94,25 @@ void CL_Factory::Init(cl_platform_id p_id)
 		status = clGetDeviceInfo(devices[0], CL_DEVICE_LOCAL_MEM_SIZE, sizeof(maxLocalMemSize), &maxLocalMemSize, NULL);
 		printf("CL_DEVICE_LOCAL_MEM_SIZE: %lu(KB)\n", maxLocalMemSize / 1024);
 
-		printf("\n\n");
+		printf("\n");
 	}
 }
 
-void CL_Factory::Complie(string s,int elements)
+void CL_Factory::Load(const char * path)
+{
+	ifstream fs;
+	fs.open(path, ios::in | ios::binary);
+	char tmp;
+	while (1) {
+		tmp=fs.get();
+		if (tmp == -1)
+			break;
+		source += tmp;
+	}
+	fs.close();
+}
+
+void CL_Factory::Complie(int item_count,int T_count)
 {
 	/*Creat a context*/
 	context = clCreateContext(NULL, numDevices, devices, NULL, NULL, &status);
@@ -108,53 +122,60 @@ void CL_Factory::Complie(string s,int elements)
 	printf("Num of device in Context:%d\n", device_num);
 
 	/*Create and compile the program*/
-	const char *ps = s.c_str();
-
+	const char *ps = source.c_str();
 	program = clCreateProgramWithSource(context, 1, (const char **)&ps, NULL, &status);
 	status = clBuildProgram(program, numDevices, devices, NULL, NULL, NULL);
-
 
 	if (status != CL_SUCCESS)
 	{
 		size_t len;
-		char buffer[8 * 1024];
 		printf("Error: Failed to build program executable!\n");
-		clGetProgramBuildInfo(program, devices[0], CL_PROGRAM_BUILD_LOG, sizeof(buffer), buffer, &len);
-		printf("%s\n", buffer);
 		exit(1);
 	}
 	printf("Build program completed\n");
+
 	/*Create the kernel*/
-	kernel = clCreateKernel(program, "ve_intersect", &status);
+	kernel_intersect = clCreateKernel(program, "ve_intersect", &status);
+	kernel_union = clCreateKernel(program, "ve_union", &status);
 
 	/*Create a command queue*/
 	cmdQueue = clCreateCommandQueueWithProperties(context, devices[0], 0, &status);
 
-	const int datasize = sizeof(bool)*elements;
 	/*Create device buffers*/
+	const int datasize = sizeof(bool)*T_count;
 	bufferA = clCreateBuffer(context, CL_MEM_READ_ONLY, datasize, NULL, &status);
 	bufferB = clCreateBuffer(context, CL_MEM_READ_ONLY, datasize, NULL, &status);
 	bufferC = clCreateBuffer(context, CL_MEM_WRITE_ONLY, datasize, NULL, &status);
-}
 
+	const int item_datasize = sizeof(bool)*item_count;
+	bufferE = clCreateBuffer(context, CL_MEM_READ_ONLY, item_datasize, NULL, &status);
+	bufferF = clCreateBuffer(context, CL_MEM_READ_ONLY, item_datasize, NULL, &status);
+	bufferG = clCreateBuffer(context, CL_MEM_WRITE_ONLY, item_datasize, NULL, &status);
+}
+/*Write host data to device buffers*/
 void CL_Factory::WriteBufferA(bool * A, int elements)
 {
-	/*Write host data to device buffers*/
 	status = clEnqueueWriteBuffer(cmdQueue, bufferA, CL_FALSE, 0, sizeof(bool)*elements, A, 0, NULL, NULL);
 }
-
 void CL_Factory::WriteBufferB(bool * B, int elements)
 {
-	/*Write host data to device buffers*/
 	status = clEnqueueWriteBuffer(cmdQueue, bufferB, CL_FALSE, 0, sizeof(bool)*elements, B, 0, NULL, NULL);
 }
+void CL_Factory::WriteBufferE(bool * B, int elements)
+{
+	status = clEnqueueWriteBuffer(cmdQueue, bufferE, CL_FALSE, 0, sizeof(bool)*elements, B, 0, NULL, NULL);
+}
+void CL_Factory::WriteBufferF(bool * B, int elements)
+{
+	status = clEnqueueWriteBuffer(cmdQueue, bufferF, CL_FALSE, 0, sizeof(bool)*elements, B, 0, NULL, NULL);
+}
 
-void CL_Factory::Run(bool * C, int elements)
+void CL_Factory::Run_Intersect(bool * C, int elements)
 {
 	/*Set the kernel arguments*/
-	status = clSetKernelArg(kernel, 0, sizeof(cl_mem), &bufferA);
-	status = clSetKernelArg(kernel, 1, sizeof(cl_mem), &bufferB);
-	status = clSetKernelArg(kernel, 2, sizeof(cl_mem), &bufferC);
+	status = clSetKernelArg(kernel_intersect, 0, sizeof(cl_mem), &bufferA);
+	status = clSetKernelArg(kernel_intersect, 1, sizeof(cl_mem), &bufferB);
+	status = clSetKernelArg(kernel_intersect, 2, sizeof(cl_mem), &bufferC);
 
 	/*CONFIGURE THE WORK-ITEM STRUCTURE*/
 	size_t globalWorkSize[1];
@@ -162,15 +183,61 @@ void CL_Factory::Run(bool * C, int elements)
 	//  size_t globalSize[1] = { elements }, localSize[1] = { 256 };
 
 	/*Enqueue the kernel for execution*/
-	status = clEnqueueNDRangeKernel(cmdQueue, kernel, 1, NULL, globalWorkSize, NULL, 0, NULL, NULL);
+	status = clEnqueueNDRangeKernel(cmdQueue, kernel_intersect, 1, NULL, globalWorkSize, NULL, 0, NULL, NULL);
 	/*Read the buffer output back to host*/
 	clFinish(cmdQueue);
 	clEnqueueReadBuffer(cmdQueue, bufferC, CL_TRUE, 0, sizeof(bool)*elements, C, 0, NULL, NULL);
 }
 
+void CL_Factory::Run_Union(bool * G, int elements)
+{
+	/*Set the kernel arguments*/
+	status = clSetKernelArg(kernel_union, 0, sizeof(cl_mem), &bufferE);
+	status = clSetKernelArg(kernel_union, 1, sizeof(cl_mem), &bufferF);
+	status = clSetKernelArg(kernel_union, 2, sizeof(cl_mem), &bufferG);
+
+	/*CONFIGURE THE WORK-ITEM STRUCTURE*/
+	size_t globalWorkSize[1];
+	globalWorkSize[0] = elements;
+	//  size_t globalSize[1] = { elements }, localSize[1] = { 256 };
+
+	/*Enqueue the kernel for execution*/
+	status = clEnqueueNDRangeKernel(cmdQueue, kernel_union, 1, NULL, globalWorkSize, NULL, 0, NULL, NULL);
+	/*Read the buffer output back to host*/
+	clFinish(cmdQueue);
+	clEnqueueReadBuffer(cmdQueue, bufferC, CL_TRUE, 0, sizeof(bool)*elements, G, 0, NULL, NULL);
+}
+
+void CL_Factory::Run(bool * G, int item_count,bool * C, int t_count)
+{
+	/*Set the kernel arguments*/
+	status = clSetKernelArg(kernel_intersect, 0, sizeof(cl_mem), &bufferA);
+	status = clSetKernelArg(kernel_intersect, 1, sizeof(cl_mem), &bufferB);
+	status = clSetKernelArg(kernel_intersect, 2, sizeof(cl_mem), &bufferC);
+
+	status = clSetKernelArg(kernel_union, 0, sizeof(cl_mem), &bufferE);
+	status = clSetKernelArg(kernel_union, 1, sizeof(cl_mem), &bufferF);
+	status = clSetKernelArg(kernel_union, 2, sizeof(cl_mem), &bufferG);
+
+	/*CONFIGURE THE WORK-ITEM STRUCTURE*/
+	size_t globalWorkSize1 = t_count;
+	size_t globalWorkSize2 = item_count;
+	//  size_t globalSize[1] = { elements }, localSize[1] = { 256 };
+
+	/*Enqueue the kernel for execution*/
+	status = clEnqueueNDRangeKernel(cmdQueue, kernel_intersect, 1, NULL, &globalWorkSize1, NULL, 0, NULL, NULL);
+	status = clEnqueueNDRangeKernel(cmdQueue, kernel_union, 1, NULL, &globalWorkSize2, NULL, 0, NULL, NULL);
+
+	/*Read the buffer output back to host*/
+	clFinish(cmdQueue);
+	clEnqueueReadBuffer(cmdQueue, bufferC, CL_TRUE, 0, sizeof(bool)*t_count, C, 0, NULL, NULL);
+	clEnqueueReadBuffer(cmdQueue, bufferG, CL_TRUE, 0, sizeof(bool)*item_count, G, 0, NULL, NULL);
+}
+
 CL_Factory::~CL_Factory()
 {
-	clReleaseKernel(kernel);
+	clReleaseKernel(kernel_intersect);
+	clReleaseKernel(kernel_union);
 	clReleaseProgram(program);
 	clReleaseCommandQueue(cmdQueue);
 	clReleaseMemObject(bufferA);

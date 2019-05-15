@@ -22,9 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ECLAT_A.cpp">
-      <Filter>ECLAT_STL</Filter>
-    </ClCompile>
     <ClCompile Include="ECLAT.cpp">
       <Filter>ECLAT</Filter>
     </ClCompile>
@@ -41,7 +38,13 @@
       <Filter>ECLAT\Structure</Filter>
     </ClCompile>
     <ClCompile Include="ECLAT_Readin.cpp">
-      <Filter>ECLAT\OpenCL</Filter>
+      <Filter>ECLAT</Filter>
+    </ClCompile>
+    <ClCompile Include="ECLAT_CL.cpp">
+      <Filter>ECLAT</Filter>
+    </ClCompile>
+    <ClCompile Include="ECLAT_STL.cpp">
+      <Filter>ECLAT_STL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,9 +53,6 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ECLAT_A.h">
-      <Filter>ECLAT_STL</Filter>
-    </ClInclude>
     <ClInclude Include="ECLAT.h">
       <Filter>ECLAT</Filter>
     </ClInclude>
@@ -67,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="Column.h">
       <Filter>ECLAT\Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="ECLAT_STL.h">
+      <Filter>ECLAT_STL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

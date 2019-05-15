@@ -21,14 +21,16 @@ struct vertical_item {
 	std::set<int> t_set;
 };
 
-class ECLAT_A
+class ECLAT_STL
 {
 public:
-	int threshold;
+	int Threshold;
 
 	std::map<int, tid> m_horizonal;
 	std::vector<vertical_item> v_vertical;
 	std::vector<vertical_item> v_vertical2;
+
+	ECLAT_STL(int _threshold,const char* path);
 
 	void display(std::map<int, tid> &m);
 	void display(std::vector<vertical_item> &m);

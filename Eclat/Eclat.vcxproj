@@ -22,7 +22,8 @@
     <ClCompile Include="CL_Factory.cpp" />
     <ClCompile Include="Column.cpp" />
     <ClCompile Include="ECLAT.cpp" />
-    <ClCompile Include="ECLAT_A.cpp" />
+    <ClCompile Include="ECLAT_STL.cpp" />
+    <ClCompile Include="ECLAT_CL.cpp" />
     <ClCompile Include="ECLAT_Read.cpp" />
     <ClCompile Include="ECLAT_ReadBuffer.cpp" />
     <ClCompile Include="ECLAT_Readin.cpp" />
@@ -35,9 +36,9 @@
     <ClInclude Include="CL_Factory.h" />
     <ClInclude Include="Column.h" />
     <ClInclude Include="ECLAT.h" />
-    <ClInclude Include="ECLAT_A.h" />
     <ClInclude Include="ECLAT_Read.h" />
     <ClInclude Include="ECLAT_ReadBuffer.h" />
+    <ClInclude Include="ECLAT_STL.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

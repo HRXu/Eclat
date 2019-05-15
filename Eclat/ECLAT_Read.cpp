@@ -10,8 +10,8 @@ bool ECLAT_Read::ReadData(ECLAT& eclat, DataSet _set)
 	case ECLAT_Read::connect:
 		break;
 	case ECLAT_Read::kosarak_Slim:
-		eclat.Item_Count = 7401 + 1;
-		eclat.T_Count = 40519+ 1;
+		eclat.Item_Count = 18936 + 1;
+		eclat.T_Count = 50000+ 1;
 		Read(eclat.Buffer_A,
 			eclat.T_Count,
 			eclat.Item_Count,
@@ -20,6 +20,12 @@ bool ECLAT_Read::ReadData(ECLAT& eclat, DataSet _set)
 	case ECLAT_Read::kosarak2:
 		break;
 	case ECLAT_Read::kosarak:
+		eclat.Item_Count = 41270 + 1;
+		eclat.T_Count = 990003 + 1;
+		Read(eclat.Buffer_A,
+			eclat.T_Count,
+			eclat.Item_Count,
+			"../Ex/kosarak.dat");
 		break;
 	case ECLAT_Read::mushroom:
 		break;
@@ -95,4 +101,5 @@ void ECLAT_Read::Read(std::vector<Column>& buffer_src,
 		}
 		buffer_src.push_back(Column(item_Array, t_Array));
 	}
+	_map.clear();
 }
