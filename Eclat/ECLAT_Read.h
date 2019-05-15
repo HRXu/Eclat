@@ -2,7 +2,7 @@
 #include "ECLAT_ReadBuffer.h"
 #include <vector>
 #include <fstream>
-#include <unordered_map>
+#include <map>
 #include "Column.h"
 #include "ECLAT.h"
 class ECLAT_Read
@@ -13,6 +13,7 @@ public:
 		connect,
 		kosarak_Slim,
 		kosarak2,
+		kosarak,
 		mushroom,
 		pumsb,
 		pumsb_star,

@@ -34,14 +34,14 @@
     <ClCompile Include="ECLAT_ReadBuffer.cpp">
       <Filter>ECLAT\IO</Filter>
     </ClCompile>
-    <ClCompile Include="ECLAT_Readin.cpp">
-      <Filter>ECLAT\IO</Filter>
-    </ClCompile>
     <ClCompile Include="CL_Factory.cpp">
       <Filter>ECLAT\OpenCL</Filter>
     </ClCompile>
     <ClCompile Include="Column.cpp">
       <Filter>ECLAT\Structure</Filter>
+    </ClCompile>
+    <ClCompile Include="ECLAT_Readin.cpp">
+      <Filter>ECLAT\OpenCL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

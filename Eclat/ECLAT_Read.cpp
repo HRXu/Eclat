@@ -10,14 +10,16 @@ bool ECLAT_Read::ReadData(ECLAT& eclat, DataSet _set)
 	case ECLAT_Read::connect:
 		break;
 	case ECLAT_Read::kosarak_Slim:
-		eclat.Item_Count = 3259 + 1;
-		eclat.T_Count = 1000 + 1;
+		eclat.Item_Count = 7401 + 1;
+		eclat.T_Count = 40519+ 1;
 		Read(eclat.Buffer_A,
 			eclat.T_Count,
 			eclat.Item_Count,
 			"../Ex/data.txt");
 		break;
 	case ECLAT_Read::kosarak2:
+		break;
+	case ECLAT_Read::kosarak:
 		break;
 	case ECLAT_Read::mushroom:
 		break;
@@ -53,7 +55,7 @@ void ECLAT_Read::Read(std::vector<Column>& buffer_src,
 	ECLAT_ReadBuffer buff;
 
 	//[Item,Record] map
-	unordered_map<int, vector<int>> _map;
+	map<int, vector<int>> _map;
 
 	//line 
 	int line = 1;

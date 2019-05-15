@@ -4,17 +4,11 @@ using namespace std;
 void ECLAT::Start()
 {
 	if (UseAccerlate) {
-		string s = "__kernel void vecadd(__global bool* A, __global bool* B, __global bool* C)\n"
+		string s = "__kernel void ve_intersect(__global bool* A, __global bool* B, __global bool* C)\n"
 			"{                                                                        \n"
 			"    int idx=get_global_id(0);                                            \n"
 			"    C[idx]=A[idx] & B[idx];                                              \n"
-			"}                                                                        \n"
-			;
-		string s2 = "__kernel void vecadd(__global bool* A, __global bool* B, __global bool* C)\n"
-			"{                                                                        \n"
-			"    int idx=get_global_id(0);                                            \n"
-			"    C[idx]=A[idx] | B[idx];                                              \n"
-			"}                                                                        \n"
+			"}                                                                  \n"
 			;
 		cl_factory.Init(cl_factory.platforms[0]);
 		cl_factory.Complie(s, this->T_Count);
