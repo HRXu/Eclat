@@ -6,7 +6,7 @@ using namespace std;
 
 int main(int argc,char **args) 
 {
-	ECLAT alg(false,2);
+	ECLAT alg(true,2);
 	ECLAT_Read::ReadData(alg,ECLAT_Read::test);
 
 	//ECLAT alg(true, 30);

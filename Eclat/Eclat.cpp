@@ -4,9 +4,6 @@ using namespace std;
 void ECLAT::Start()
 {
 	if (UseAccerlate) {
-		cl_factory.Init(cl_factory.platforms[0]);
-		cl_factory.Load("../kernal.txt");
-		cl_factory.Complie(Item_Count,this->T_Count);
 		this->CL_Process();
 	}
 	else {

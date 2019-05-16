@@ -2,6 +2,10 @@
 using namespace std;
 int ECLAT::CL_Process()
 {
+	cl_factory.Init(cl_factory.platforms[0]);
+	cl_factory.Load("../kernal.txt");
+	cl_factory.Complie();
+	cl_factory.CreateBuffer(this->Item_Count, this->T_Count);
 	while (true)
 	{
 		if (UsingA) {
@@ -22,23 +26,53 @@ void ECLAT::_CL_ProcessA(vector<Column> &source, vector<Column> &destination, in
 {
 	ClearBuffer(destination);
 	for (int i = 0; i < cnt; i++) {
-		cl_factory.WriteBufferA(source[i].T_Array, this->T_Count);
-		cl_factory.WriteBufferE(source[i].Item_Array, this->Item_Count);
-		for (int j = i + 1; j < cnt; j++) {
-			if (source[i].CanIntersectWith(source[j], this->Item_Count)) {
-				Column* tmp = new Column(this->Item_Count, this->T_Count);
+		cl_factory.WriteBufferA(source[i].Item_Array, source[i].T_Array);
 
-				cl_factory.WriteBufferB(source[j].T_Array, this->T_Count);
-				cl_factory.WriteBufferF(source[j].Item_Array, this->Item_Count);
-				int res = CL_Intersect(source[i], source[j], *tmp);
-				if (res >= Threshold)
-					destination.push_back(*tmp);
-				else {
-					delete[] tmp->Item_Array;
-					delete[] tmp->T_Array;
-					delete tmp;
-				}
+		int j = i + 1;
+		while(j < cnt)
+		{
+			int k = 0;
+			if (j<cnt &&
+				source[i].CanIntersectWith(source[j], this->Item_Count)) 
+			{
+				int _param[3] = { 0,this->Item_Count,this->T_Count };
+				cl_factory.WriteBuffer(0, source[j].Item_Array, source[j].T_Array,_param);
+				cl_factory.SetParamAndEnqueue(0);	
+				k++;
 			}
+			j++;
+			if (j < cnt &&
+				source[i].CanIntersectWith(source[j], this->Item_Count))
+			{
+				int _param[3] = { 0,this->Item_Count,this->T_Count };
+				cl_factory.WriteBuffer(1, source[j].Item_Array, source[j].T_Array, _param);
+				cl_factory.SetParamAndEnqueue(1);			
+				k++;
+			}
+			j++;
+			if (j < cnt &&
+				source[i].CanIntersectWith(source[j], this->Item_Count))
+			{
+				int _param[3] = { 0,this->Item_Count,this->T_Count };
+				cl_factory.WriteBuffer(2, source[j].Item_Array, source[j].T_Array, _param);
+				cl_factory.SetParamAndEnqueue(2);
+				k++;
+			}
+			j++;
+			if (j < cnt &&
+				source[i].CanIntersectWith(source[j], this->Item_Count))
+			{
+				int _param[3] = { 0,this->Item_Count,this->T_Count };
+				cl_factory.WriteBuffer(3, source[j].Item_Array, source[j].T_Array, _param);
+				cl_factory.SetParamAndEnqueue(3);
+				k++;
+			}
+			j++;
+			cl_factory.ReadResult(destination,
+								this->Threshold,
+								this->Item_Count,
+								this->T_Count,
+								k);
 		}
 	}
 	printf("Turn#:\n");
@@ -46,10 +80,5 @@ void ECLAT::_CL_ProcessA(vector<Column> &source, vector<Column> &destination, in
 }
 int ECLAT::CL_Intersect(Column & col1, Column & col2, Column & dest)
 {
-	cl_factory.Run(dest.Item_Array, Item_Count, dest.T_Array, T_Count);
-	int res = 0;
-	for (int i = 0; i < T_Count; i++) {
-		res += dest.T_Array[i];
-	}
-	return res;
+	return 0;
 }
