@@ -156,10 +156,12 @@ void CL_Factory::Complie()
 
 }
 
-void CL_Factory::CreateBuffer(int item_count, int T_count) {
+void CL_Factory::CreateBuffer(int item_count, int t_count) {
 	/*Create device buffers*/
-	item_datasize = sizeof(bool)*item_count;
-	T_datasize = sizeof(bool)*T_count;
+	item_datasize = sizeof(char)*item_count;
+	T_datasize = sizeof(char)*t_count;
+	this->Item_Count = item_count;
+	this->T_Count=t_count;
 
 	item_buf_A = clCreateBuffer(context, CL_MEM_READ_ONLY, item_datasize, NULL, &status);
 	T_buf_A = clCreateBuffer(context, CL_MEM_READ_ONLY, T_datasize, NULL, &status);	
@@ -173,14 +175,14 @@ void CL_Factory::CreateBuffer(int item_count, int T_count) {
 }
 
 /*Write host data to device buffers*/
-void CL_Factory::WriteBufferA(bool * items,bool *T)
+void CL_Factory::WriteBufferA(char * items, char *T)
 {
 	status = clEnqueueWriteBuffer(cmdQueue, item_buf_A, CL_FALSE, 0, item_datasize, items, 0, NULL, NULL);
 	status = clEnqueueWriteBuffer(cmdQueue, T_buf_A, CL_FALSE, 0, T_datasize, T, 0, NULL, NULL);
 }
 void CL_Factory::WriteBuffer(int index,
-							bool * items,
-							bool *T,
+							char * items,
+							char *T,
 							int *_param)
 {
 
@@ -198,9 +200,11 @@ void CL_Factory::SetParamAndEnqueue(int index)
 	status = clSetKernelArg(kernels[index], 3, sizeof(cl_mem), &T_buf[index]);
 	status = clSetKernelArg(kernels[index], 4, sizeof(cl_mem), &param[index]);
 
-	size_t globalWorkSize = WORK_SIZE;
+	size_t globalWorkSize = GLOBAL_WORK_SIZE;
+	size_t localWorkSize = LOCAL_WORK_SIZE;
 
-	status = clEnqueueNDRangeKernel(cmdQueue, kernels[index], 1, NULL, &globalWorkSize, NULL, 0, NULL, NULL);
+	status = clEnqueueNDRangeKernel(cmdQueue, kernels[index], 1, NULL, &globalWorkSize, &localWorkSize, 0, NULL, NULL);
+	//status = clEnqueueNDRangeKernel(cmdQueue, kernels[index], 1, NULL, &globalWorkSize, NULL, 0, NULL, NULL);
 
 }
 
@@ -215,13 +219,18 @@ void CL_Factory::ReadResult(std::vector<Column>& dest,
 	{
 		int a_param[3];
 		clEnqueueReadBuffer(cmdQueue, param[i], CL_TRUE, 0, sizeof(int)*3, a_param, 0, NULL, NULL);
-		if (a_param[0] < threshold)
+		
+		if (a_param[0] < threshold || a_param[1]==-1)
 			continue;
+
 		Column *tmp = new Column();
-		tmp->Item_Array = new bool[item_count];
-		tmp->T_Array = new bool[T_count];
+		tmp->Item_Array = new char[item_count];
+		tmp->T_Array = new char[T_count];
 		clEnqueueReadBuffer(cmdQueue, item_buf[i], CL_TRUE, 0, item_datasize, tmp->Item_Array, 0, NULL, NULL);
 		clEnqueueReadBuffer(cmdQueue, T_buf[i], CL_TRUE, 0, T_datasize, tmp->T_Array, 0, NULL, NULL);
+
+
+
 		dest.push_back(*tmp);
 	}
 }
@@ -232,7 +241,7 @@ CL_Factory::~CL_Factory()
 	clReleaseProgram(program);
 	clReleaseCommandQueue(cmdQueue);
 //TODO
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < WORK_SIZE; i++)
 	{
 		clReleaseKernel(kernels[i]);
 		clReleaseMemObject(item_buf[i]);

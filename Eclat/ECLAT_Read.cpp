@@ -10,8 +10,8 @@ bool ECLAT_Read::ReadData(ECLAT& eclat, DataSet _set)
 	case ECLAT_Read::connect:
 		break;
 	case ECLAT_Read::kosarak_Slim:
-		eclat.Item_Count = 18936 + 1;
-		eclat.T_Count = 50000+ 1;
+		eclat.Item_Count = 22036 + 1;
+		eclat.T_Count = 80000+ 1;
 		Read(eclat.Buffer_A,
 			eclat.T_Count,
 			eclat.Item_Count,
@@ -90,14 +90,14 @@ void ECLAT_Read::Read(std::vector<Column>& buffer_src,
 
 	//convert to a vertical form
 	for (auto &it : _map) {
-		bool *item_Array = new bool[item_count];
-		memset(item_Array, 0, sizeof(bool)*item_count);
+		char *item_Array = new char[item_count];
+		memset(item_Array, 0, sizeof(char)*item_count);
 		item_Array[it.first] = 1;
 
-		bool *t_Array = new bool[t_count];
-		memset(t_Array, 0, sizeof(bool)*t_count);
+		char *t_Array = new char[t_count];
+		memset(t_Array, 0, sizeof(char)*t_count);
 		for (auto &it2 : it.second) {
-			t_Array[it2] = 1;
+			t_Array[it2] = 1; 
 		}
 		buffer_src.push_back(Column(item_Array, t_Array));
 	}

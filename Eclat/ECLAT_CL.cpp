@@ -32,17 +32,17 @@ void ECLAT::_CL_ProcessA(vector<Column> &source, vector<Column> &destination, in
 		while(j < cnt)
 		{
 			int k = 0;
-			for (int m = 0; m < WORK_SIZE; m++)
+			for (int m = 0; m < WORK_SIZE; m++, j++)
 			{
-				if (j < cnt &&
-					source[i].CanIntersectWith(source[j], this->Item_Count))
+				if (j < cnt)
 				{
-					int _param[3] = { 0,this->Item_Count,this->T_Count };
+					int _param[3] = { 0,this->Item_Count,this->T_Count};
 					cl_factory.WriteBuffer(m, source[j].Item_Array, source[j].T_Array, _param);
 					cl_factory.SetParamAndEnqueue(m);
 					k++;
 				}
-				j++;
+				else 
+					break;
 			}
 
 			cl_factory.ReadResult(destination,

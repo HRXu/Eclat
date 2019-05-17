@@ -1,62 +1,52 @@
-__kernel void ve_intersect(__global bool* A, __global bool* B, __global bool* C)
-{  
-    int idx=get_global_id(0);
-    C[idx]=A[idx] & B[idx];
-}																	 
-__kernel void ve_union(__global bool* A, __global bool* B, __global bool* C)
-{
-	int idx=get_global_id(0);
-	C[idx]=A[idx] | B[idx];
-}
-
-__kernel void Ex(__global bool* A_item,
-				__global bool* A_T,
-				__global bool* B_item,
-				__global bool* B_T,
+__kernel void Ex(__global char* A_item,
+				__global char* A_T,
+				__global char* B_item,
+				__global char* B_T,
 				__global int* param)
 {
 	//param[0] :res;
-	int res=0;
-	int item_count=param[1];
-	int T_count=param[2];
+	int res = 0;
+	int item_count = param[1];
+	int T_count = param[2];
 
-	bool flag = false;
+	//int gid = get_local_id(0);
+	int gid = get_global_id(0);
 
-	int location = 0;
-	for (int i = 0; i < item_count; i++)
-	{
-		switch (location)
+	if (gid == 0) {
+
+		int location = 0;
+		int s1 = 0;
+		char _union;
+		for (int i = 0; i < item_count; i++)
 		{
-		case 0:
-			if (A_item[i] != B_item[i])
-				location = 1;
-			break;
-		case 1:
-			if (A_item[i] != B_item[i])
-				location = 2;
-			break;
-		case 2:
-			if ((A_item[i] | B_item[i]))
-				location = 3;
-			break;
-		case 3:
-			break;
+			_union = A_item[i] | B_item[i];
+
+			switch (location)
+			{
+			case 0:
+				if (A_item[i] != B_item[i]) {
+					location = 1;
+				}
+				break;
+			case 1:
+				s1 += _union;
+				break;
+			}
+			B_item[i] = _union;
 		}
-		if (i == (length - 1) && location != 2) {
-			param[0] = -1;
+		if (s1 != 1) {
+			param[1] = -1;
 			return;
 		}
+		param[1] = 1;
 	}
-
-
-	for(int i=0;i<item_count;i++){
-		B_item[i] |= A_item[i];
+	else {
+		for (int i = 0; i < T_count; i++) {
+			B_T[i] &= A_T[i];
+			if (B_T[i])res++;
+		}
+		param[0] = res;
+		param[2] = 2;
 	}
-
-	for(int i=0;i<T_count;i++){
-		B_T[i] &= A_T[i];
-		if(B_T[i])res++;
-	}
-
-	param[0]=res;
 }
+

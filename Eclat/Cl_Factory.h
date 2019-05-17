@@ -5,7 +5,11 @@
 #include<fstream>
 #include<vector>
 #include "Column.h"
-#define WORK_SIZE 32
+#define GLOBAL_WORK_SIZE 4
+#define LOCAL_WORK_SIZE 1
+//#define WORK_SIZE GLOBAL_WORK_SIZE*LOCAL_WORK_SIZE
+#define WORK_SIZE 48
+
 class CL_Factory
 {
 public:
@@ -19,9 +23,9 @@ public:
 	void CreateBuffer(int item_count, int T_count);
 
 	//set the params add excute the kernal
-	void WriteBufferA(bool * items, bool * T);
+	void WriteBufferA(char * items, char * T);
 
-	void WriteBuffer(int index, bool * items, bool * T, int * _param);
+	void WriteBuffer(int index, char * items, char * T, int * _param);
 	void SetParamAndEnqueue(int index);
 	void ReadResult(std::vector<Column>& dest, int threshold, int item_count, int T_count,int c);
 
@@ -42,6 +46,9 @@ private:
 
 	int item_datasize;
 	int T_datasize;
+
+	int Item_Count;
+	int T_Count;
 
 	cl_mem item_buf_A;
 	cl_mem T_buf_A;
