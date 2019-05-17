@@ -5,6 +5,7 @@
 #include<fstream>
 #include<vector>
 #include "Column.h"
+#define WORK_SIZE 32
 class CL_Factory
 {
 public:
@@ -45,11 +46,11 @@ private:
 	cl_mem item_buf_A;
 	cl_mem T_buf_A;
 
-	cl_mem item_buf[4];
-	cl_mem T_buf[4];
-	cl_mem param[4];
+	cl_mem item_buf[WORK_SIZE];
+	cl_mem T_buf[WORK_SIZE];
+	cl_mem param[WORK_SIZE];
 	
-	cl_kernel kernels[4];
+	cl_kernel kernels[WORK_SIZE];
 };
 
 

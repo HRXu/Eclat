@@ -3,7 +3,7 @@ using namespace std;
 int ECLAT::CL_Process()
 {
 	cl_factory.Init(cl_factory.platforms[0]);
-	cl_factory.Load("../kernal.txt");
+	cl_factory.Load("../kernal.c");
 	cl_factory.Complie();
 	cl_factory.CreateBuffer(this->Item_Count, this->T_Count);
 	while (true)
@@ -32,42 +32,19 @@ void ECLAT::_CL_ProcessA(vector<Column> &source, vector<Column> &destination, in
 		while(j < cnt)
 		{
 			int k = 0;
-			if (j<cnt &&
-				source[i].CanIntersectWith(source[j], this->Item_Count)) 
+			for (int m = 0; m < WORK_SIZE; m++)
 			{
-				int _param[3] = { 0,this->Item_Count,this->T_Count };
-				cl_factory.WriteBuffer(0, source[j].Item_Array, source[j].T_Array,_param);
-				cl_factory.SetParamAndEnqueue(0);	
-				k++;
+				if (j < cnt &&
+					source[i].CanIntersectWith(source[j], this->Item_Count))
+				{
+					int _param[3] = { 0,this->Item_Count,this->T_Count };
+					cl_factory.WriteBuffer(m, source[j].Item_Array, source[j].T_Array, _param);
+					cl_factory.SetParamAndEnqueue(m);
+					k++;
+				}
+				j++;
 			}
-			j++;
-			if (j < cnt &&
-				source[i].CanIntersectWith(source[j], this->Item_Count))
-			{
-				int _param[3] = { 0,this->Item_Count,this->T_Count };
-				cl_factory.WriteBuffer(1, source[j].Item_Array, source[j].T_Array, _param);
-				cl_factory.SetParamAndEnqueue(1);			
-				k++;
-			}
-			j++;
-			if (j < cnt &&
-				source[i].CanIntersectWith(source[j], this->Item_Count))
-			{
-				int _param[3] = { 0,this->Item_Count,this->T_Count };
-				cl_factory.WriteBuffer(2, source[j].Item_Array, source[j].T_Array, _param);
-				cl_factory.SetParamAndEnqueue(2);
-				k++;
-			}
-			j++;
-			if (j < cnt &&
-				source[i].CanIntersectWith(source[j], this->Item_Count))
-			{
-				int _param[3] = { 0,this->Item_Count,this->T_Count };
-				cl_factory.WriteBuffer(3, source[j].Item_Array, source[j].T_Array, _param);
-				cl_factory.SetParamAndEnqueue(3);
-				k++;
-			}
-			j++;
+
 			cl_factory.ReadResult(destination,
 								this->Threshold,
 								this->Item_Count,

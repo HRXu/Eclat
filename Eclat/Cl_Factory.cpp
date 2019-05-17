@@ -147,7 +147,7 @@ void CL_Factory::Complie()
 	printf("Build program completed\n");
 
 	/*Create the kernel*/
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < WORK_SIZE; i++) {
 		kernels[i]= clCreateKernel(program, "Ex", &status);
 	}
 
@@ -164,7 +164,7 @@ void CL_Factory::CreateBuffer(int item_count, int T_count) {
 	item_buf_A = clCreateBuffer(context, CL_MEM_READ_ONLY, item_datasize, NULL, &status);
 	T_buf_A = clCreateBuffer(context, CL_MEM_READ_ONLY, T_datasize, NULL, &status);	
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < WORK_SIZE; i++)
 	{
 		item_buf[i]= clCreateBuffer(context, CL_MEM_READ_WRITE, item_datasize, NULL, &status);
 		T_buf[i] = clCreateBuffer(context, CL_MEM_READ_WRITE, T_datasize, NULL, &status);
@@ -198,7 +198,7 @@ void CL_Factory::SetParamAndEnqueue(int index)
 	status = clSetKernelArg(kernels[index], 3, sizeof(cl_mem), &T_buf[index]);
 	status = clSetKernelArg(kernels[index], 4, sizeof(cl_mem), &param[index]);
 
-	size_t globalWorkSize = 4;
+	size_t globalWorkSize = WORK_SIZE;
 
 	status = clEnqueueNDRangeKernel(cmdQueue, kernels[index], 1, NULL, &globalWorkSize, NULL, 0, NULL, NULL);
 

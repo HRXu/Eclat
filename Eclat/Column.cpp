@@ -3,32 +3,48 @@
 //检查是否能求交 求并集
 bool Column::CanIntersectWith(Column & col, int length)
 {
-	//int diff = 0;
-	//for (int i = 0; i < length; i++)
-	//{
-	//	diff += Item_Array[i] ^ col.Item_Array[i];
-	//}
-	//if (diff != 2) {
-	//	return false;
-	//}
-	//return true;
-	for (int i = 0; i < length; i++){
-		if (Item_Array[i] != col.Item_Array[i]) {
-			i++;
-			for (; i < length; i++){
-				if (Item_Array[i] != col.Item_Array[i]) {
-					i++;
-					for (; i < length; i++) {
-						if ((Item_Array[i] | col.Item_Array[i])) {
-							return false;
-						}
-					}
-					return true;
-				}
-			}
+	int location = 0;
+	for (int i = 0; i < length; i++)
+	{
+		switch (location)
+		{
+		case 0:
+			if (Item_Array[i] != col.Item_Array[i])
+				location = 1;
+			break;
+		case 1:
+			if (Item_Array[i] != col.Item_Array[i]) 
+				location = 2;
+			break;
+		case 2:
+			if ((Item_Array[i] | col.Item_Array[i])) 
+				location =3;
+			break;
+		case 3:
+			break;
+		}
+		if (i == (length - 1) && location != 2) {
+			return false;
 		}
 	}
-	return false;
+
+	//for (int i = 0; i < length; i++){
+	//	if (Item_Array[i] != col.Item_Array[i]) {
+	//		i++;
+	//		for (; i < length; i++){
+	//			if (Item_Array[i] != col.Item_Array[i]) {
+	//				i++;
+	//				for (; i < length; i++) {
+	//					if ((Item_Array[i] | col.Item_Array[i])) {
+	//						return false;
+	//					}
+	//				}
+	//				return true;
+	//			}
+	//		}
+	//	}
+	//}
+	return true;
 }
 
 
