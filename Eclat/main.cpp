@@ -1,6 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "eclat.h"
-#include "ECLAT_STL.h"
 #include "ECLAT_Read.h"
 using namespace std;
 

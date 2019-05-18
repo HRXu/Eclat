@@ -4,48 +4,41 @@
     <Filter Include="Other">
       <UniqueIdentifier>{7cc1cd5d-8e2b-448f-aeac-2b7cdd216bb7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ECLAT_STL">
-      <UniqueIdentifier>{d416bcce-02a5-456d-9256-f6f73118dca1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ECLAT">
       <UniqueIdentifier>{37f7ea3e-0565-42ba-bc2c-e92f210e08fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ECLAT\IO">
+    <Filter Include="IO">
       <UniqueIdentifier>{18760c35-ab48-4893-9f5f-683716a859a5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ECLAT\OpenCL">
-      <UniqueIdentifier>{f4672038-2806-4d2b-b2ad-e44d408ef746}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ECLAT\Structure">
+    <Filter Include="Structure">
       <UniqueIdentifier>{8816fbba-a41b-4ae5-9667-019601e16141}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenCL">
+      <UniqueIdentifier>{f4672038-2806-4d2b-b2ad-e44d408ef746}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ECLAT.cpp">
-      <Filter>ECLAT</Filter>
-    </ClCompile>
     <ClCompile Include="ECLAT_Read.cpp">
-      <Filter>ECLAT\IO</Filter>
-    </ClCompile>
-    <ClCompile Include="ECLAT_ReadBuffer.cpp">
-      <Filter>ECLAT\IO</Filter>
+      <Filter>IO</Filter>
     </ClCompile>
     <ClCompile Include="CL_Factory.cpp">
-      <Filter>ECLAT\OpenCL</Filter>
+      <Filter>OpenCL</Filter>
     </ClCompile>
     <ClCompile Include="Column.cpp">
-      <Filter>ECLAT\Structure</Filter>
+      <Filter>Structure</Filter>
     </ClCompile>
-    <ClCompile Include="ECLAT_Readin.cpp">
-      <Filter>ECLAT</Filter>
+    <ClCompile Include="ECLAT_OCL.cpp">
+      <Filter>OpenCL</Filter>
     </ClCompile>
-    <ClCompile Include="ECLAT_CL.cpp">
-      <Filter>ECLAT</Filter>
+    <ClCompile Include="ECLAT_Display.cpp">
+      <Filter>IO</Filter>
     </ClCompile>
-    <ClCompile Include="ECLAT_STL.cpp">
-      <Filter>ECLAT_STL</Filter>
+    <ClCompile Include="ECLAT_ReadBuffer.cpp">
+      <Filter>IO</Filter>
     </ClCompile>
+    <ClCompile Include="ECLAT.cpp" />
+    <ClCompile Include="ECLAT_Baseline.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt">
@@ -53,23 +46,18 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ECLAT.h">
-      <Filter>ECLAT</Filter>
-    </ClInclude>
     <ClInclude Include="ECLAT_Read.h">
-      <Filter>ECLAT\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="ECLAT_ReadBuffer.h">
-      <Filter>ECLAT\IO</Filter>
+      <Filter>IO</Filter>
     </ClInclude>
     <ClInclude Include="CL_Factory.h">
-      <Filter>ECLAT\OpenCL</Filter>
+      <Filter>OpenCL</Filter>
     </ClInclude>
     <ClInclude Include="Column.h">
-      <Filter>ECLAT\Structure</Filter>
+      <Filter>Structure</Filter>
     </ClInclude>
-    <ClInclude Include="ECLAT_STL.h">
-      <Filter>ECLAT_STL</Filter>
+    <ClInclude Include="ECLAT_ReadBuffer.h">
+      <Filter>IO</Filter>
     </ClInclude>
+    <ClInclude Include="ECLAT.h" />
   </ItemGroup>
 </Project>

@@ -2,7 +2,6 @@
 using namespace std;
 int ECLAT::CL_Process()
 {
-	cl_factory.Init(cl_factory.platforms[0]);
 	cl_factory.Load("../kernal.c");
 	cl_factory.Complie();
 	cl_factory.CreateBuffer(this->Item_Count, this->T_Count);

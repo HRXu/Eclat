@@ -128,7 +128,6 @@ void CL_Factory::Complie()
 
 	if (status != CL_SUCCESS)
 	{
-		size_t len;
 		printf("Error: Failed to build program executable!\n");
 		size_t log_size;
 		char *program_log;

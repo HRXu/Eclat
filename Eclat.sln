@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{EC7EB676-B4D6-43AB-B1B2-424383A6A7F5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ECLAT_STL", "ECLAT_STL\ECLAT_STL.vcxproj", "{3EE44963-25A5-4BF7-8DAC-9888DD79709A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,16 @@ Global
 		{EC7EB676-B4D6-43AB-B1B2-424383A6A7F5}.Release|x64.Build.0 = Release|x64
 		{EC7EB676-B4D6-43AB-B1B2-424383A6A7F5}.Release|x86.ActiveCfg = Release|Win32
 		{EC7EB676-B4D6-43AB-B1B2-424383A6A7F5}.Release|x86.Build.0 = Release|Win32
+		{3EE44963-25A5-4BF7-8DAC-9888DD79709A}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{3EE44963-25A5-4BF7-8DAC-9888DD79709A}.Debug|x64.ActiveCfg = Debug|x64
+		{3EE44963-25A5-4BF7-8DAC-9888DD79709A}.Debug|x64.Build.0 = Debug|x64
+		{3EE44963-25A5-4BF7-8DAC-9888DD79709A}.Debug|x86.ActiveCfg = Debug|Win32
+		{3EE44963-25A5-4BF7-8DAC-9888DD79709A}.Debug|x86.Build.0 = Debug|Win32
+		{3EE44963-25A5-4BF7-8DAC-9888DD79709A}.Release|Any CPU.ActiveCfg = Release|Win32
+		{3EE44963-25A5-4BF7-8DAC-9888DD79709A}.Release|x64.ActiveCfg = Release|x64
+		{3EE44963-25A5-4BF7-8DAC-9888DD79709A}.Release|x64.Build.0 = Release|x64
+		{3EE44963-25A5-4BF7-8DAC-9888DD79709A}.Release|x86.ActiveCfg = Release|Win32
+		{3EE44963-25A5-4BF7-8DAC-9888DD79709A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

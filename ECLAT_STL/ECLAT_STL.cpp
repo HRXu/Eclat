@@ -1,17 +1,43 @@
 #include "ECLAT_STL.h"
-#define READ_INT(i) int i;cin>>i
-#define READ_CHAR(i) char i;cin>>i
 using namespace std;
 
 //unfinish
-void ECLAT_STL::readin(std::map<int, tid>& horizonal,
-					   std::vector<vertical_item>& res)
+void ECLAT_STL::readin(				   
+	std::vector<vertical_item>& res,
+	const char *path)
 {
-	READ_INT(cnt);
-	READ_INT(item_cnt);
-	for (int i = 0; i < item_cnt; i++) {
-		READ_CHAR(tmp);
+	int max = 0;
+	ifstream fs;
+	fs.open(path, ios::in | ios::binary);
+
+	char tmp;
+	ECLAT_ReadBuffer buff;
+	//[Item,Record] map
+	map<int, vector<int>> _map;
+	//line 
+	int line = 1;
+
+	while (true) {
+		tmp = fs.get();
+		if (tmp == -1)
+			break;
+		if (tmp == '\n') {
+			//finish a nuumber
+			//finish a line				
+			_map[buff.ToInt()].push_back(line);
+			line++;
+		}
+		else if (tmp == ' ') {
+			//finish a nuumber
+			_map[buff.ToInt()].push_back(line);
+		}
+		else {
+			buff.Add(tmp);
+		}
 	}
+
+	//close the file
+	fs.close();
 
 	map<char, item> vertical;
 	for (int i = 0; i < cnt; i++)
@@ -27,7 +53,6 @@ void ECLAT_STL::readin(std::map<int, tid>& horizonal,
 			vertical[tmp].t_vector.push_back(i);
 		}
 	}
-
 	res.resize(vertical.size());
 
 	int i = 0;
@@ -74,19 +99,8 @@ void ECLAT_STL::intersection_item(
 
 ECLAT_STL::ECLAT_STL(int _threshold, const char * path)
 {
-	readin(m_horizonal, v_vertical);
+	readin(v_buf_A, path);
 	this->Threshold = _threshold;
-}
-
-void ECLAT_STL::display(std::map<int, tid>& m)
-{
-	for (auto &it : m) {
-		printf("T%d: ", it.first);
-		for (auto &it2 : it.second.item_vector) {
-			printf("%c ", it2);
-		}
-		printf("\n");
-	}
 }
 
 void ECLAT_STL::display(std::vector<vertical_item>& m)
