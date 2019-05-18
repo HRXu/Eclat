@@ -1,52 +1,49 @@
-__kernel void Ex(__global char* A_item,
-				__global char* A_T,
-				__global char* B_item,
-				__global char* B_T,
-				__global int* param)
+__kernel void Ex(
+	__global char* A_item,
+	__global char* A_T,
+	__global char* B_item,
+	__global char* B_T,
+	__global int* param,
+	const int T_Count,
+	const int Item_Count
+)
 {
-	//param[0] :res;
-	int res = 0;
-	int item_count = param[1];
-	int T_count = param[2];
-
 	//int gid = get_local_id(0);
 	int gid = get_global_id(0);
 
-	if (gid == 0) {
-
-		int location = 0;
-		int s1 = 0;
-		char _union;
-		for (int i = 0; i < item_count; i++)
+	int location = 0;
+	int s1 = 0;
+	char _union;
+	int index = gid*Item_Count;
+	for (int i = 0; i < Item_Count; i++,index++)
+	{
+		_union = A_item[i] | B_item[index];
+		switch (location)
 		{
-			_union = A_item[i] | B_item[i];
-
-			switch (location)
-			{
-			case 0:
-				if (A_item[i] != B_item[i]) {
-					location = 1;
-				}
-				break;
-			case 1:
-				s1 += _union;
-				break;
+		case 0:
+			if (A_item[i] != B_item[index]) {
+				location = 1;
 			}
-			B_item[i] = _union;
+			break;
+		case 1:
+			s1 += _union;
+			break;
 		}
-		if (s1 != 1) {
-			param[1] = -1;
-			return;
-		}
-		param[1] = 1;
+		B_item[index] = _union;
 	}
-	else {
-		for (int i = 0; i < T_count; i++) {
-			B_T[i] &= A_T[i];
-			if (B_T[i])res++;
-		}
-		param[0] = res;
-		param[2] = 2;
+	if (s1 != 1) {
+		param[gid] = -s1;
+		return;
 	}
+
+
+	int res = 0;
+	index = gid * T_Count;
+	for (int i = 0; i < T_Count; i++, index++) {
+		B_T[index] &= A_T[i];
+		if (B_T[index])res++;
+	}
+	param[gid] = res;
+
 }
 

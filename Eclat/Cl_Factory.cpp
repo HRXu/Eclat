@@ -147,9 +147,7 @@ void CL_Factory::Complie()
 	printf("Build program completed\n");
 
 	/*Create the kernel*/
-	for (int i = 0; i < WORK_SIZE; i++) {
-		kernels[i]= clCreateKernel(program, "Ex", &status);
-	}
+	Kernel= clCreateKernel(program, "Ex", &status);
 
 	/*Create a command queue*/
 	cmdQueue = clCreateCommandQueueWithProperties(context, devices[0], 0, &status);
@@ -166,12 +164,9 @@ void CL_Factory::CreateBuffer(int item_count, int t_count) {
 	item_buf_A = clCreateBuffer(context, CL_MEM_READ_ONLY, item_datasize, NULL, &status);
 	T_buf_A = clCreateBuffer(context, CL_MEM_READ_ONLY, T_datasize, NULL, &status);	
 
-	for (int i = 0; i < WORK_SIZE; i++)
-	{
-		item_buf[i]= clCreateBuffer(context, CL_MEM_READ_WRITE, item_datasize, NULL, &status);
-		T_buf[i] = clCreateBuffer(context, CL_MEM_READ_WRITE, T_datasize, NULL, &status);
-		param[i] = clCreateBuffer(context, CL_MEM_READ_WRITE, sizeof(int)*3, NULL, &status);
-	}
+	Item_buf= clCreateBuffer(context, CL_MEM_READ_WRITE, item_datasize*WORK_SIZE , NULL, &status);
+	T_buf = clCreateBuffer(context, CL_MEM_READ_WRITE, T_datasize*WORK_SIZE , NULL, &status);
+	Param_buf = clCreateBuffer(context, CL_MEM_READ_WRITE, sizeof(int)*WORK_SIZE , NULL, &status);
 }
 
 /*Write host data to device buffers*/
@@ -183,53 +178,49 @@ void CL_Factory::WriteBufferA(char * items, char *T)
 void CL_Factory::WriteBuffer(int index,
 							char * items,
 							char *T,
-							int *_param)
+							int _param)
 {
-
-	status = clEnqueueWriteBuffer(cmdQueue, item_buf[index], CL_FALSE, 0, item_datasize, items, 0, NULL, NULL);
-	status = clEnqueueWriteBuffer(cmdQueue, T_buf[index], CL_FALSE, 0, T_datasize, T, 0, NULL, NULL);
-	status = clEnqueueWriteBuffer(cmdQueue, param[index], CL_FALSE, 0, sizeof(int) * 3, _param, 0, NULL, NULL);
+	status = clEnqueueWriteBuffer(cmdQueue, Item_buf, CL_FALSE, index*item_datasize, item_datasize, items, 0, NULL, NULL);
+	status = clEnqueueWriteBuffer(cmdQueue, T_buf, CL_FALSE, index*T_datasize, T_datasize, T, 0, NULL, NULL);
+	status = clEnqueueWriteBuffer(cmdQueue, Param_buf, CL_FALSE, index *sizeof(int), sizeof(int), &_param, 0, NULL, NULL);
 }
 
-void CL_Factory::SetParamAndEnqueue(int index)
+void CL_Factory::SetParamAndEnqueue()
 {
 	/*Set the kernel arguments*/
-	status = clSetKernelArg(kernels[index], 0, sizeof(cl_mem), &item_buf_A);
-	status = clSetKernelArg(kernels[index], 1, sizeof(cl_mem), &T_buf_A);
-	status = clSetKernelArg(kernels[index], 2, sizeof(cl_mem), &item_buf[index]);
-	status = clSetKernelArg(kernels[index], 3, sizeof(cl_mem), &T_buf[index]);
-	status = clSetKernelArg(kernels[index], 4, sizeof(cl_mem), &param[index]);
+	status = clSetKernelArg(Kernel, 0, sizeof(cl_mem), &item_buf_A);
+	status = clSetKernelArg(Kernel, 1, sizeof(cl_mem), &T_buf_A);
+	status = clSetKernelArg(Kernel, 2, sizeof(cl_mem), &Item_buf);
+	status = clSetKernelArg(Kernel, 3, sizeof(cl_mem), &T_buf);
+	status = clSetKernelArg(Kernel, 4, sizeof(cl_mem), &Param_buf);
+	status = clSetKernelArg(Kernel, 5, sizeof(int), &T_Count);
+	status = clSetKernelArg(Kernel, 6, sizeof(int), &Item_Count);
 
 	size_t globalWorkSize = GLOBAL_WORK_SIZE;
 	size_t localWorkSize = LOCAL_WORK_SIZE;
 
-	status = clEnqueueNDRangeKernel(cmdQueue, kernels[index], 1, NULL, &globalWorkSize, &localWorkSize, 0, NULL, NULL);
-	//status = clEnqueueNDRangeKernel(cmdQueue, kernels[index], 1, NULL, &globalWorkSize, NULL, 0, NULL, NULL);
-
+	status = clEnqueueNDRangeKernel(cmdQueue, Kernel, 1, NULL, &globalWorkSize, &localWorkSize, 0, NULL, NULL);
 }
 
 void CL_Factory::ReadResult(std::vector<Column>& dest,
 							int threshold,
 							int item_count,
 							int T_count,
-							int c)
+							int index)
 {
 	clFinish(cmdQueue);
-	for (int i = 0; i < c; i++)
+	for (int i = 0; i < index; i++)
 	{
-		int a_param[3];
-		clEnqueueReadBuffer(cmdQueue, param[i], CL_TRUE, 0, sizeof(int)*3, a_param, 0, NULL, NULL);
-		
-		if (a_param[0] < threshold || a_param[1]==-1)
-			continue;
+		int a_param;
+		clEnqueueReadBuffer(cmdQueue, Param_buf, CL_TRUE, i*sizeof(int), sizeof(int), &a_param, 0, NULL, NULL);	
 
+		if (a_param < threshold)
+			continue;
 		Column *tmp = new Column();
 		tmp->Item_Array = new char[item_count];
 		tmp->T_Array = new char[T_count];
-		clEnqueueReadBuffer(cmdQueue, item_buf[i], CL_TRUE, 0, item_datasize, tmp->Item_Array, 0, NULL, NULL);
-		clEnqueueReadBuffer(cmdQueue, T_buf[i], CL_TRUE, 0, T_datasize, tmp->T_Array, 0, NULL, NULL);
-
-
+		clEnqueueReadBuffer(cmdQueue, Item_buf, CL_TRUE, i*item_datasize, item_datasize, tmp->Item_Array, 0, NULL, NULL);
+		clEnqueueReadBuffer(cmdQueue, T_buf, CL_TRUE, i*T_datasize, T_datasize, tmp->T_Array, 0, NULL, NULL);
 
 		dest.push_back(*tmp);
 	}
@@ -241,14 +232,10 @@ CL_Factory::~CL_Factory()
 	clReleaseProgram(program);
 	clReleaseCommandQueue(cmdQueue);
 //TODO
-	for (int i = 0; i < WORK_SIZE; i++)
-	{
-		clReleaseKernel(kernels[i]);
-		clReleaseMemObject(item_buf[i]);
-		clReleaseMemObject(T_buf[i]);
-		clReleaseMemObject(param[i]);
-	}
-
+	clReleaseKernel(Kernel);
+	clReleaseMemObject(Item_buf);
+	clReleaseMemObject(T_buf);
+	clReleaseMemObject(Param_buf);
 
 	clReleaseContext(context);
 

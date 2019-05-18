@@ -5,10 +5,12 @@
 #include<fstream>
 #include<vector>
 #include "Column.h"
-#define GLOBAL_WORK_SIZE 4
+//一次运行线程数量
+//根据你的opencl设备定
+//amd rx580 2304sp最大可以运行256
+#define GLOBAL_WORK_SIZE 256
 #define LOCAL_WORK_SIZE 1
-//#define WORK_SIZE GLOBAL_WORK_SIZE*LOCAL_WORK_SIZE
-#define WORK_SIZE 48
+#define WORK_SIZE GLOBAL_WORK_SIZE
 
 class CL_Factory
 {
@@ -25,10 +27,10 @@ public:
 	//set the params add excute the kernal
 	void WriteBufferA(char * items, char * T);
 
-	void WriteBuffer(int index, char * items, char * T, int * _param);
-	void SetParamAndEnqueue(int index);
-	void ReadResult(std::vector<Column>& dest, int threshold, int item_count, int T_count,int c);
+	void WriteBuffer(int index, char * items, char * T, int _param);
 
+	void SetParamAndEnqueue();
+	void ReadResult(std::vector<Column>& dest, int threshold, int item_count, int T_count,int c);
 
 	cl_platform_id* platforms = nullptr;
 	cl_device_id* devices = nullptr;
@@ -37,12 +39,12 @@ public:
 	~CL_Factory();
 
 private:
+	std::string source;
+
 	cl_context context = NULL;
 	cl_program program;
 	cl_command_queue cmdQueue;
-
-
-	std::string source;
+	cl_kernel Kernel;
 
 	int item_datasize;
 	int T_datasize;
@@ -53,11 +55,10 @@ private:
 	cl_mem item_buf_A;
 	cl_mem T_buf_A;
 
-	cl_mem item_buf[WORK_SIZE];
-	cl_mem T_buf[WORK_SIZE];
-	cl_mem param[WORK_SIZE];
-	
-	cl_kernel kernels[WORK_SIZE];
+	cl_mem Item_buf;
+	cl_mem T_buf;
+	cl_mem Param_buf;
+
 };
 
 

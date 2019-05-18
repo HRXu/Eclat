@@ -36,15 +36,13 @@ void ECLAT::_CL_ProcessA(vector<Column> &source, vector<Column> &destination, in
 			{
 				if (j < cnt)
 				{
-					int _param[3] = { 0,this->Item_Count,this->T_Count};
-					cl_factory.WriteBuffer(m, source[j].Item_Array, source[j].T_Array, _param);
-					cl_factory.SetParamAndEnqueue(m);
+					cl_factory.WriteBuffer(m, source[j].Item_Array, source[j].T_Array, 0);
 					k++;
 				}
 				else 
 					break;
 			}
-
+			cl_factory.SetParamAndEnqueue();
 			cl_factory.ReadResult(destination,
 								this->Threshold,
 								this->Item_Count,
