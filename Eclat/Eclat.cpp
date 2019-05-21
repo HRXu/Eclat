@@ -17,12 +17,11 @@ ECLAT::ECLAT(bool isAccerlate, int threshold)
 	this->Threshold = threshold;
 
 	if (UseAccerlate) {
-		cl_factory.Init(cl_factory.platforms[0]);
+		cl_factory.Init();
+		printf("please confirm the Device info\n");
+		printf("Work size:%d\n", WORK_SIZE);
 	}
-
-	printf("please confirm the Device info\n");
-	printf("Work size:%d\n",WORK_SIZE);
-	getchar();
+	//getchar();
 }
 
 void ECLAT::Reduce()

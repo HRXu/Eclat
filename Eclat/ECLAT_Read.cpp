@@ -5,10 +5,6 @@ bool ECLAT_Read::ReadData(ECLAT& eclat, DataSet _set)
 {
 	switch (_set)
 	{
-	case ECLAT_Read::chess:
-		break;
-	case ECLAT_Read::connect:
-		break;
 	case ECLAT_Read::kosarak_Slim:
 		eclat.Item_Count = 22036 + 1;
 		eclat.T_Count = 80000+ 1;
@@ -27,14 +23,6 @@ bool ECLAT_Read::ReadData(ECLAT& eclat, DataSet _set)
 			eclat.Item_Count,
 			"../Ex/kosarak.dat");
 		break;
-	case ECLAT_Read::mushroom:
-		break;
-	case ECLAT_Read::pumsb:
-		break;
-	case ECLAT_Read::pumsb_star:
-		break;
-	case ECLAT_Read::retail:
-		break;
 	case ECLAT_Read::test:
 		eclat.Item_Count = 5 + 1;
 		eclat.T_Count = 9 + 1;
@@ -42,6 +30,22 @@ bool ECLAT_Read::ReadData(ECLAT& eclat, DataSet _set)
 			eclat.T_Count,
 			eclat.Item_Count,
 			"../Ex/test.txt");
+		break;
+	case ECLAT_Read::k1000:
+		eclat.Item_Count = 3259 + 1;
+		eclat.T_Count = 1000 + 1;
+		Read(eclat.Buffer_A,
+			eclat.T_Count,
+			eclat.Item_Count,
+			"../Ex/k1000.txt");
+		break;
+	case ECLAT_Read::k5000:
+		eclat.Item_Count = 7401 + 1;
+		eclat.T_Count = 5000 + 1;
+		Read(eclat.Buffer_A,
+			eclat.T_Count,
+			eclat.Item_Count,
+			"../Ex/k5000.txt");
 		break;
 	}
 
@@ -102,4 +106,9 @@ void ECLAT_Read::Read(std::vector<Column>& buffer_src,
 		buffer_src.push_back(Column(item_Array, t_Array));
 	}
 	_map.clear();
+}
+
+void ECLAT_Read::UX() {
+	printf("please choose a dataset:\n");
+
 }

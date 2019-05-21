@@ -9,19 +9,15 @@ class ECLAT_Read
 {
 public:
 	enum DataSet {
-		chess = 0,
-		connect,
 		kosarak_Slim,
 		kosarak2,
 		kosarak,
-		mushroom,
-		pumsb,
-		pumsb_star,
-		retail,
-		test
+		test,
+		k1000,
+		k5000,
 	};
 	static bool ReadData(ECLAT& eclat,DataSet _set);
-
+	static void UX();
 private:
 	static void Read(std::vector<Column>& buffer_src,
 					int t_count, 

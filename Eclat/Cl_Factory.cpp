@@ -1,9 +1,8 @@
 #include "CL_Factory.h"
 using namespace std;
-CL_Factory::CL_Factory()
+void CL_Factory::Init()
 {
 	cl_uint numPlatforms = 0;
-
 	status = clGetPlatformIDs(0, NULL, &numPlatforms);  //retrieve number of platforms
 	printf("# of platform:%d\n", numPlatforms);
 	platforms = (cl_platform_id*)malloc(numPlatforms * sizeof(cl_platform_id)); // malloct memery for platform 
@@ -13,7 +12,6 @@ CL_Factory::CL_Factory()
 	for (int i = 0; i < numPlatforms; i++)
 	{
 		size_t size = 0;
-
 		//name
 		status = clGetPlatformInfo(platforms[i], CL_PLATFORM_NAME, 0, NULL, &size);
 		char* name = (char*)malloc(size);
@@ -52,10 +50,8 @@ CL_Factory::CL_Factory()
 		free(profile);
 		free(extensions);
 	}
+	cl_platform_id p_id = platforms[0];
 
-}
-void CL_Factory::Init(cl_platform_id p_id)
-{
 	status = clGetDeviceIDs(p_id, CL_DEVICE_TYPE_GPU, 0, NULL, &numDevices);  // retrieve Device number
 
 	printf("# of device:%d\n", numDevices);
@@ -72,7 +68,6 @@ void CL_Factory::Init(cl_platform_id p_id)
 		char* name_list = (char*)malloc(value_size);
 		status = clGetDeviceInfo(devices[i], CL_DEVICE_NAME, value_size, name_list, NULL);
 		printf("CL_DEVICE_NAME:%s\n", name_list);
-
 		//PARALLEL COMPUTE UNITS(CU)
 		cl_uint     maxComputeUnits = 0;
 		status = clGetDeviceInfo(devices[i], CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(maxComputeUnits), &maxComputeUnits, NULL);

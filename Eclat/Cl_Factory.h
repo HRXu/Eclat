@@ -6,18 +6,15 @@
 #include<vector>
 #include "Column.h"
 //一次运行线程数量
-//根据你的opencl设备定
-//amd rx580 2304sp最大可以运行256
-#define GLOBAL_WORK_SIZE 256
+#define GLOBAL_WORK_SIZE 1024
 #define LOCAL_WORK_SIZE 1
 #define WORK_SIZE GLOBAL_WORK_SIZE
 
 class CL_Factory
 {
 public:
-	CL_Factory();
 	//initialize
-	void Init(cl_platform_id id);
+	void Init();
 	//complie the kernal code and create the runtime environment
 	void Load(const char *path);
 	void Complie();
