@@ -1,6 +1,6 @@
 #pragma once
 #include<string>
-#include<CL/cl.h>
+#include"CL/cl.h"
 #include<cstdio>
 #include<fstream>
 #include<vector>

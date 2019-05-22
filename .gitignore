@@ -10,10 +10,11 @@
 test/
 /[Ee]x/
 !/[Ee]x/readme.md
-#/cl_include/
-!/cl_include/readme.md
-#/cl_lib/
-!/cl_lib/readme.md
+/cl_include/*.h
+/cl_include/CL/*.h
+/cl_include/CL/*.hpp
+/cl_lib/*.lib
+/cl_lib/*.a
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
