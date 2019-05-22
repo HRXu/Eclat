@@ -10,14 +10,14 @@ int main(int argc,char **args)
 	ECLAT alg(true, 30);
 	ECLAT_Read::UX();
 #else
-	//ECLAT alg(true,2);
-	//ECLAT_Read::ReadData(alg,ECLAT_Read::test);
+	ECLAT alg(true,2);
+	ECLAT_Read::ReadData(alg,ECLAT_Read::test);
 
 	//ECLAT alg(true, 30);
 	//ECLAT_Read::ReadData(alg, ECLAT_Read::k1000);
 
-	ECLAT alg(false, 30);
-	ECLAT_Read::ReadData(alg, ECLAT_Read::k5000);
+	//ECLAT alg(false, 30);
+	//ECLAT_Read::ReadData(alg, ECLAT_Read::k5000);
 
 	//ECLAT alg(true, 30);
 	//ECLAT_Read::ReadData(alg, ECLAT_Read::kosarak_Slim);

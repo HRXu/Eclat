@@ -145,7 +145,8 @@ void CL_Factory::Complie()
 
 	/*Create a command queue*/
 	cmdQueue = clCreateCommandQueueWithProperties(context, devices[0], 0, &status);
-
+	
+	//cmdQueue = clCreateCommandQueue(context, devices[0], 0, &status);
 }
 
 void CL_Factory::CreateBuffer(int item_count, int t_count) {

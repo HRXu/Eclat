@@ -9,6 +9,11 @@
 
 test/
 [Ee]x/
+!/[Ee]x/readme.md
+cl_include/
+!/cl_include/readme.md
+cl_lib/
+!/cl_lib/readme.md
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
